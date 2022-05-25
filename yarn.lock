@@ -2743,6 +2743,7 @@ __metadata:
     zcloak-dev-version: ./scripts/zcloak-dev-version.mjs
     zcloak-dev-yarn-only: ./scripts/zcloak-dev-yarn-only.mjs
     zcloak-exec-eslint: ./scripts/zcloak-exec-eslint.mjs
+    zcloak-exec-ghrelease: ./scripts/zcloak-exec-ghrelease.mjs
     zcloak-exec-prettier: ./scripts/zcloak-exec-prettier.mjs
     zcloak-exec-rollup: ./scripts/zcloak-exec-rollup.mjs
     zcloak-exec-tsc: ./scripts/zcloak-exec-tsc.mjs
