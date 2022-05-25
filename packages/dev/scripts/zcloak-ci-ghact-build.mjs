@@ -19,18 +19,17 @@ const argv = yargs(process.argv.slice(2))
       type: 'boolean'
     }
   })
-  .strict()
-  .argv;
+  .strict().argv;
 
-function runClean () {
+function runClean() {
   execSync('yarn zcloak-dev-clean-build');
 }
 
-function runCheck () {
+function runCheck() {
   execSync('yarn lint');
 }
 
-function runTest () {
+function runTest() {
   execSync('yarn test');
 
   // if [ -f "coverage/lcov.info" ] && [ -n "$COVERALLS_REPO_TOKEN" ]; then
@@ -40,23 +39,24 @@ function runTest () {
   // fi
 }
 
-function runBuild () {
+function runBuild() {
   execSync('yarn build');
 }
 
-function npmGetVersion () {
-  return JSON.parse(
-    fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8')
-  ).version;
+function npmGetVersion() {
+  return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8')).version;
 }
 
-function npmSetup () {
+function npmSetup() {
   const registry = 'registry.npmjs.org';
 
-  fs.writeFileSync(path.join(os.homedir(), '.npmrc'), `//${registry}/:_authToken=${process.env.NPM_TOKEN}`);
+  fs.writeFileSync(
+    path.join(os.homedir(), '.npmrc'),
+    `//${registry}/:_authToken=${process.env.NPM_TOKEN}`
+  );
 }
 
-function npmPublish () {
+function npmPublish() {
   if (fs.existsSync('.skip-npm')) {
     return;
   }
@@ -92,10 +92,10 @@ function npmPublish () {
   process.chdir('..');
 }
 
-function gitBump () {
+function gitBump() {
   const currentVersion = npmGetVersion();
   const [version, tag] = currentVersion.split('-');
-  const [,, patch] = version.split('.');
+  const [, , patch] = version.split('.');
 
   if (argv['skip-beta'] || patch === '0') {
     // don't allow beta versions
@@ -116,30 +116,48 @@ function gitBump () {
   execSync('git add --all .');
 }
 
-function gitPush () {
+function gitPush() {
   const version = npmGetVersion();
+  let doGHRelease = false;
+
+  if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
+    const changes = fs.readFileSync('CHANGELOG.md', 'utf8');
+
+    if (changes.includes(`## ${version}`)) {
+      doGHRelease = true;
+    }
+  }
 
   execSync('git add --all .');
 
   // add the skip checks for GitHub ...
-  execSync(`git commit --no-status --quiet -m "[CI Skip] release/${version.includes('-') ? 'beta' : 'stable'} ${version}
+  execSync(`git commit --no-status --quiet -m "[CI Skip] release/${
+    version.includes('-') ? 'beta' : 'stable'
+  } ${version}
 
 
 skip-checks: true"`);
 
   execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
+
+  if (doGHRelease) {
+    const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
+
+    execSync(`yarn zcloak-exec-ghrelease --draft ${files} --yes`);
+  }
 }
 
-function loopFunc (fn) {
+function loopFunc(fn) {
   if (fs.existsSync('packages')) {
-    fs
-      .readdirSync('packages')
+    fs.readdirSync('packages')
       .filter((dir) => {
         const pkgDir = path.join(process.cwd(), 'packages', dir);
 
-        return fs.statSync(pkgDir).isDirectory() &&
+        return (
+          fs.statSync(pkgDir).isDirectory() &&
           fs.existsSync(path.join(pkgDir, 'package.json')) &&
-          fs.existsSync(path.join(pkgDir, 'build'));
+          fs.existsSync(path.join(pkgDir, 'build'))
+        );
       })
       .forEach((dir) => {
         process.chdir(path.join('packages', dir));
