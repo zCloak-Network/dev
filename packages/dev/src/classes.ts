@@ -4,21 +4,21 @@ export class Testing123 {
   readonly and: number;
 
   static staticProperty = 'babelIsCool';
-  static staticFunction = (): string|null => Testing123.staticProperty;
+  static staticFunction = (): string | null => Testing123.staticProperty;
 
   /**
    * @param and the number we should and with
    */
-  constructor (and: number) {
+  constructor(and: number) {
     this.and = and;
     this.#something = this.#something & and;
   }
 
-  get something (): number {
+  get something(): number {
     return this.#something;
   }
 
-  async doAsync (): Promise<boolean> {
+  async doAsync(): Promise<boolean> {
     const res = await new Promise<boolean>((resolve) => resolve(true));
 
     console.log(res);
@@ -36,7 +36,7 @@ export class Testing123 {
     return this.#something;
   };
 
-  toString (): string {
+  toString(): string {
     return `something=${this.#something}`;
   }
 }

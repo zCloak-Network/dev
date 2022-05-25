@@ -18,10 +18,13 @@ const CONFIG_ESM = {
 module.exports = function (isEsm) {
   return resolver([
     '@babel/preset-typescript',
-    ['@babel/preset-react', {
-      development: false,
-      runtime: 'automatic'
-    }],
+    [
+      '@babel/preset-react',
+      {
+        development: false,
+        runtime: 'automatic'
+      }
+    ],
     ['@babel/preset-env', isEsm ? CONFIG_ESM : CONFIG_CJS]
   ]);
 };

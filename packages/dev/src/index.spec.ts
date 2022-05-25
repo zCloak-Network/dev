@@ -5,9 +5,7 @@ describe('index', () => {
   it('runs the echo function', () => {
     blah();
 
-    expect(
-      echo('something')
-    ).toEqual('1: 123: something');
+    expect(echo('something')).toEqual('1: 123: something');
   });
 
   it('runs the adder function', () => {

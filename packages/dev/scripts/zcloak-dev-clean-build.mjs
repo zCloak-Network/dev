@@ -7,11 +7,16 @@ const PKGS = path.join(process.cwd(), 'packages');
 
 console.log('$ zcloak-dev-clean-build', process.argv.slice(2).join(' '));
 
-function getDirs (dir) {
-  return [path.join(dir, 'build'), path.join(dir, 'build-docs'), path.join(dir, 'tsconfig.tsbuildinfo'), path.join(dir, 'tsconfig.*.tsbuildinfo')];
+function getDirs(dir) {
+  return [
+    path.join(dir, 'build'),
+    path.join(dir, 'build-docs'),
+    path.join(dir, 'tsconfig.tsbuildinfo'),
+    path.join(dir, 'tsconfig.*.tsbuildinfo')
+  ];
 }
 
-function cleanDirs (dirs) {
+function cleanDirs(dirs) {
   dirs.forEach((dir) => rimraf.sync(dir));
 }
 

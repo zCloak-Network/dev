@@ -1,3 +1,3 @@
-export default function bar (): void {
+export default function bar(): void {
   console.log('hello world');
 }

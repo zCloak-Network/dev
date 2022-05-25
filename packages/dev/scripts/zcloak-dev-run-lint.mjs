@@ -17,18 +17,19 @@ const argv = yargs(process.argv.slice(2))
       type: 'boolean'
     }
   })
-  .strict()
-  .argv;
+  .strict().argv;
 
 if (!argv['skip-eslint']) {
   // We don't want to run with fix on CI
-  const extra = process.env.GITHUB_REPOSITORY
-    ? ''
-    : '--fix';
+  const extra = process.env.GITHUB_REPOSITORY ? '' : '--fix';
 
-  execSync(`yarn zcloak-exec-eslint ${extra} --resolve-plugins-relative-to ${__dirname} --ext .js,.cjs,.mjs,.ts,.tsx ${process.cwd()}`);
+  execSync(
+    `yarn zcloak-exec-eslint ${extra} --resolve-plugins-relative-to ${__dirname} --ext .js,.cjs,.mjs,.ts,.tsx ${process.cwd()}`
+  );
 }
 
 if (!argv['skip-tsc']) {
-  execSync('yarn zcloak-exec-tsc --noEmit --emitDeclarationOnly false --pretty --project tsconfig.build.json');
+  execSync(
+    'yarn zcloak-exec-tsc --noEmit --emitDeclarationOnly false --pretty --project tsconfig.build.json'
+  );
 }

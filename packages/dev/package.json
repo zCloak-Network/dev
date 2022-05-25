@@ -1,16 +1,16 @@
 {
   "author": "zCloak",
-  "bugs": "https://github.com/zCloak/dev/issues",
+  "bugs": "https://github.com/zCloak-Network/dev/issues",
   "contributors": [],
   "description": "A collection of shared CI scripts and development environment used by @zcloak projects",
-  "homepage": "https://github.com/zCloak/dev/tree/master/packages/dev#readme",
+  "homepage": "https://github.com/zCloak-Network/dev/tree/master/packages/dev#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@zcloak/dev",
   "repository": {
     "directory": "packages/dev",
     "type": "git",
-    "url": "https://github.com/zCloak/dev.git"
+    "url": "https://github.com/zCloak-Network/dev.git"
   },
   "sideEffects": false,
   "type": "module",
