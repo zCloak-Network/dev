@@ -28,6 +28,17 @@ function updateDependencies(dependencies, others, version) {
     }, {});
 }
 
+function readRootPkgJson() {
+  const rootPath = path.join(process.cwd(), 'package.json');
+  const rootJson = JSON.parse(fs.readFileSync(rootPath, 'utf8'));
+
+  return [rootPath, rootJson];
+}
+
+function writePkgJson(path, json) {
+  fs.writeFileSync(path, `${JSON.stringify(json, null, 2)}\n`);
+}
+
 function updatePackage(version, others, pkgPath, json) {
   const updated = Object.keys(json).reduce((result, key) => {
     if (key === 'version') {
@@ -49,15 +60,14 @@ function updatePackage(version, others, pkgPath, json) {
     return result;
   }, {});
 
-  fs.writeFileSync(pkgPath, `${JSON.stringify(updated, null, 2)}\n`);
+  writePkgJson(pkgPath, updated);
 }
 
 console.log('$ zcloak-dev-version', process.argv.slice(2).join(' '));
 
 execSync(`yarn version ${type === 'pre' ? 'prerelease' : type}`);
 
-const rootPath = path.join(process.cwd(), 'package.json');
-const rootJson = JSON.parse(fs.readFileSync(rootPath, 'utf8'));
+const [rootPath, rootJson] = readRootPkgJson();
 
 updatePackage(rootJson.version, [], rootPath, rootJson);
 
