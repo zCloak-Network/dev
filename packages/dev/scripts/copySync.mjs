@@ -1,7 +1,5 @@
-// adapted from the unmaintained https://github.com/mysticatea/cpx implementation
-// Copyright (c) 2015 Toru Nagashima under MIT
-//
-// This only uses the sync copy needed and removed unneeded dependencies (such as ancient chokidar)
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
 
 import fs from 'fs-extra';
 import glob from 'glob';

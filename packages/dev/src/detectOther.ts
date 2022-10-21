@@ -1,5 +1,4 @@
-// samples...
-// var _packageInfo = require("@zcloak/networks/packageInfo");
-// import { packageInfo as netInfo } from '@zcloak/networks/packageInfo';
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
 
 export default [];

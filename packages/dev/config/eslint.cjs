@@ -1,3 +1,6 @@
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
 // ordering here important (at least from a rule maintenance pov)
 /* eslint-disable sort-keys */
 
@@ -55,6 +58,7 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    'header',
     'prettier',
     'import',
     'import-newlines',
@@ -77,7 +81,15 @@ module.exports = {
     '@typescript-eslint/type-annotation-spacing': 'error',
     'arrow-parens': ['error', 'always'],
     'default-param-last': [0], // conflicts with TS version (this one doesn't allow TS ?)
-    'header/header': 'off',
+    'header/header': [
+      2,
+      'line',
+      [
+        ' Copyright 2021-2022 zcloak authors & contributors',
+        ' SPDX-License-Identifier: Apache-2.0'
+      ],
+      2
+    ],
     'import-newlines/enforce': 'off',
     'multiline-ternary': 'off',
     'jsx-a11y/anchor-is-valid': 'off',

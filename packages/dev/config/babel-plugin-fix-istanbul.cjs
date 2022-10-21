@@ -1,6 +1,6 @@
-// Restore old babylon behavior for istanbul.
-// https://github.com/babel/babel/pull/6836
-// https://github.com/istanbuljs/istanbuljs/issues/119
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
 module.exports = function () {
   return {
     visitor: {

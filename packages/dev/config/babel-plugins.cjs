@@ -1,3 +1,6 @@
+// Copyright 2021-2022 zcloak authors & contributors
+// SPDX-License-Identifier: Apache-2.0
+
 const { EXT_CJS, EXT_ESM } = require('./babel-extensions.cjs');
 const resolver = require('./babel-resolver.cjs');
 
