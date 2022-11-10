@@ -12,6 +12,8 @@ module.exports = {
       .filter((p) => fs.statSync(`packages/${p}`).isDirectory())
       .map((p) => `<rootDir>/packages/${p}/build`)
   ),
+  // custom resolver to do TS-like imports
+  resolver: require.resolve('./jest-resolver.cjs'),
   // See https://jestjs.io/docs/configuration#extraglobals-arraystring
   sandboxInjectedGlobals: ['Math'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],

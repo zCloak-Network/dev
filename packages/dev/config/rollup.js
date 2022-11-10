@@ -3,6 +3,7 @@
 
 import pluginAlias from '@rollup/plugin-alias';
 import pluginCommonjs from '@rollup/plugin-commonjs';
+import pluginDynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import pluginInject from '@rollup/plugin-inject';
 import pluginJson from '@rollup/plugin-json';
 import { nodeResolve as pluginResolve } from '@rollup/plugin-node-resolve';
@@ -11,11 +12,11 @@ import path from 'path';
 import pluginCleanup from 'rollup-plugin-cleanup';
 
 function sanitizePkg(pkg) {
-  return pkg.replace('@zcloak/', '');
+  return pkg.replace('@polkadot/', '');
 }
 
 function createName(input) {
-  return `zcloak-${sanitizePkg(input)}`
+  return `polkadot-${sanitizePkg(input)}`
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase());
 }
@@ -35,8 +36,11 @@ export function createOutput(_pkg, external, globals) {
   const pkg = sanitizePkg(_pkg);
 
   return {
-    file: `packages/${pkg}/build/bundle-zcloak-${pkg}.js`,
+    file: `packages/${pkg}/build/bundle-polkadot-${pkg}.js`,
     format: 'umd',
+    generatedCode: {
+      constBindings: true
+    },
     globals: external.reduce(
       (all, pkg) => ({
         [pkg]: createName(pkg),
@@ -44,14 +48,19 @@ export function createOutput(_pkg, external, globals) {
       }),
       { ...globals }
     ),
-    intro: 'const global = window;',
-    name: createName(_pkg),
-    preferConst: true
+    // combine multi-chunk builds with dynamic imports
+    inlineDynamicImports: true,
+    // this is a mini x-global, determine where our context lies
+    intro:
+      'const global = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : window;',
+    name: createName(_pkg)
   };
 }
 
 export function createBundle({ entries = {}, external, globals = {}, index, inject = {}, pkg }) {
   return {
+    // specify this (we define global in the output intro as globalThis || self || window)
+    context: 'global',
     external,
     input: createInput(pkg, index),
     output: createOutput(pkg, external, globals),
@@ -59,6 +68,7 @@ export function createBundle({ entries = {}, external, globals = {}, index, inje
       pluginAlias({ entries }),
       pluginJson(),
       pluginCommonjs(),
+      pluginDynamicImportVars(),
       pluginInject(inject),
       pluginResolve({ browser: true }),
       pluginCleanup()
