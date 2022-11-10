@@ -1,7 +1,7 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import execSync from './execSync.mjs';
+import { execSync } from './execute.mjs';
 
 const USER = 'github-actions[bot]';
 const MAIL = 'action@github.com';

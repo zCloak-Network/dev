@@ -14,6 +14,7 @@ module.exports = {
   },
   ignorePatterns: [
     '**/build/*',
+    '**/build-*/*',
     '**/coverage/*',
     '**/node_modules/*',
     '.eslintrc.cjs',

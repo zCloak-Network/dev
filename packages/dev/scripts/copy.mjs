@@ -1,6 +1,11 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+// adapted from the unmaintained https://github.com/mysticatea/cpx implementation
+// Copyright (c) 2015 Toru Nagashima under MIT
+//
+// This only uses the sync copy needed and removed unneeded dependencies (such as ancient chokidar)
+
 import fs from 'fs-extra';
 import glob from 'glob';
 import glob2base from 'glob2base';
@@ -15,7 +20,7 @@ function normalizePath(originalPath) {
   return /\/$/.test(normalizedPath) ? normalizedPath.slice(0, -1) : normalizedPath || '.';
 }
 
-export default function copySync(src, dst) {
+export function copySync(src, dst) {
   const normalizedSource = normalizePath(src);
   const normalizedOutputDir = normalizePath(dst);
   const baseDir = normalizePath(
