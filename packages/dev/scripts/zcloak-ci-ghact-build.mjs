@@ -5,8 +5,6 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import rimraf from 'rimraf';
-import yargs from 'yargs';
 
 import { copySync } from './copy.mjs';
 import { execSync } from './execute.mjs';
@@ -17,15 +15,6 @@ console.log('$ zcloak-ci-ghact-build', process.argv.slice(2).join(' '));
 const repo = `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
 
 let withNpm = false;
-
-const argv = yargs(process.argv.slice(2))
-  .options({
-    'skip-beta': {
-      description: 'Do not increment as beta',
-      type: 'boolean'
-    }
-  })
-  .strict().argv;
 
 function runClean() {
   execSync('yarn zcloak-dev-clean-build');
@@ -47,16 +36,6 @@ function runTest() {
 
 function runBuild() {
   execSync('yarn build');
-}
-
-function rmFile(file) {
-  if (fs.existsSync(file)) {
-    rimraf.sync(file);
-
-    return true;
-  }
-
-  return false;
 }
 
 function npmGetJsonPath() {
@@ -82,21 +61,9 @@ function npmSetVersionFields() {
     json.versions = {};
   }
 
-  if (json.versionGit) {
-    json.versions.git = json.versionGit;
-    delete json.versionGit;
-  }
-
-  if (json.versionNpm) {
-    json.versions.npm = json.versionNpm;
-    delete json.versionNpm;
-  }
-
   json.versions.git = json.version;
 
-  if (!json.version.endsWith('-x')) {
-    json.versions.npm = json.version;
-  }
+  json.versions.npm = json.version;
 
   npmSetJson(json);
 }
@@ -146,32 +113,15 @@ function npmPublish() {
   process.chdir('..');
 }
 
-function getFlags() {
-  withNpm = rmFile('.123npm');
-}
-
 function verBump() {
-  const { version: currentVersion, versionNpm, versions } = npmGetJson();
-  const [version, tag] = currentVersion.split('-');
-  const [, , patch] = version.split('.');
-  const lastVersion = versions ? versions.npm : versionNpm;
+  const { version: currentVersion, versions } = npmGetJson();
+  const lastVersion = versions.npm;
 
-  if (argv['skip-beta'] || patch === '0') {
-    // don't allow beta versions
-    execSync('yarn zcloak-dev-version patch');
+  if (currentVersion !== lastVersion) {
     withNpm = true;
-  } else if (tag || currentVersion === lastVersion) {
-    // beta version, just continue the stream of betas
-    execSync('yarn zcloak-dev-version pre');
-  } else {
-    // manually set, got for publish
-    withNpm = true;
+    // always ensure we have made some changes, so we can commit
+    npmSetVersionFields();
   }
-
-  // always ensure we have made some changes, so we can commit
-  npmSetVersionFields();
-
-  execSync('git add --all .');
 }
 
 function gitPush() {
@@ -183,21 +133,17 @@ function gitPush() {
 
     if (changes.includes(`## ${version}`)) {
       doGHRelease = true;
-    } else if (version.endsWith('.1')) {
+    } else if (!version.includes('-')) {
       throw new Error(`Unable to release, no CHANGELOG entry for ${version}`);
     }
   }
 
   execSync('git add --all .');
 
-  if (fs.existsSync('docs/README.md')) {
-    execSync('git add --all -f docs');
-  }
-
   // add the skip checks for GitHub ...
-  execSync(`git commit --no-status --quiet -m "[CI Skip] ${
-    version.includes('-x') ? 'bump' : 'release'
-  }/${version.includes('-') ? 'beta' : 'stable'} ${version}
+  execSync(`git commit --no-status --quiet -m "[CI Skip] release/${
+    version.includes('-') ? 'beta' : 'stable'
+  } ${version}
 
 
 skip-checks: true"`);
@@ -237,8 +183,6 @@ function loopFunc(fn) {
 gitSetup();
 npmSetup();
 
-// get flags immediate, then adjust
-getFlags();
 verBump();
 
 // perform the actual CI ops

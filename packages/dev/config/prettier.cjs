@@ -5,18 +5,7 @@ module.exports = {
   parser: 'babel-ts',
   semi: true,
   tabWidth: 2,
-  printWidth: 2048,
+  printWidth: 100,
   singleQuote: true,
-  trailingComma: 'none',
-  arrowParens: 'always',
-  bracketSpacing: true,
-  embeddedLanguageFormatting: 'off',
-  endOfLine: 'lf',
-  htmlWhitespaceSensitivity: 'ignore',
-  jsxBracketSameLine: false,
-  jsxSingleQuote: true,
-  proseWrap: 'preserve',
-  quoteProps: 'as-needed',
-  requirePragma: true, // only on those files explicitly asked for
-  useTabs: false
+  trailingComma: 'none'
 };
