@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.5.0 Nov 11, 2022
+
+Changes:
+
+- don't make packageInfo.json
+- bump version manual
+
+
 ## 0.4.1 Nov 10, 2022
 
 Changes:

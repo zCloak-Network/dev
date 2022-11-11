@@ -125,6 +125,8 @@ function verBump() {
 }
 
 function gitPush() {
+  if (!withNpm) return;
+
   const version = npmGetVersion();
   let doGHRelease = false;
 
