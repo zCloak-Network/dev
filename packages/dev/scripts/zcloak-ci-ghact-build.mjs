@@ -75,24 +75,6 @@ function npmGetVersion() {
   return npmGetJson().version;
 }
 
-function npmAddVersionX() {
-  const json = npmGetJson();
-
-  if (!json.version.endsWith('-x')) {
-    json.version = json.version + '-x';
-    npmSetJson(json);
-  }
-}
-
-function npmDelVersionX() {
-  const json = npmGetJson();
-
-  if (json.version.endsWith('-x')) {
-    json.version = json.version.replace('-x', '');
-    npmSetJson(json);
-  }
-}
-
 function npmSetVersionFields() {
   const json = npmGetJson();
 
@@ -179,13 +161,6 @@ function verBump() {
     execSync('yarn zcloak-dev-version patch');
     withNpm = true;
   } else if (tag || currentVersion === lastVersion) {
-    // if we don't want to publish, add an X before passing
-    if (!withNpm) {
-      npmAddVersionX();
-    } else {
-      npmDelVersionX();
-    }
-
     // beta version, just continue the stream of betas
     execSync('yarn zcloak-dev-version pre');
   } else {
