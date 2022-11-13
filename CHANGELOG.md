@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.6.0 Nov 13, 2022
+
+Changes:
+
+- add @zcloak/lint package, it to lint dependencies in package.json, and also lint references in tsconfig.build.json when local dependencies.
+- add zcloak-dev-lint-dependencies ci.
+
+
 ## 0.5.0 Nov 11, 2022
 
 Changes:
