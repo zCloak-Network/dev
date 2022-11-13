@@ -13,8 +13,8 @@
   "type": "commonjs",
   "version": "0.6.1",
   "versions": {
-    "git": "0.6.0",
-    "npm": "0.6.0"
+    "git": "0.6.1",
+    "npm": "0.6.1"
   },
   "workspaces": [
     "packages/*"
