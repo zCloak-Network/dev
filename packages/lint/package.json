@@ -1,0 +1,29 @@
+{
+  "author": "zCloak",
+  "bugs": "https://github.com/zCloak-Network/toolkit/issues",
+  "contributors": [],
+  "description": "A collection of shared CI scripts and development environment used by @zcloak projects",
+  "homepage": "https://github.com/zCloak-Network/toolkit/tree/master/packages/lint#readme",
+  "license": "Apache-2.0",
+  "maintainers": [],
+  "name": "@zcloak/lint",
+  "repository": {
+    "directory": "packages/lint",
+    "type": "git",
+    "url": "https://github.com/zCloak-Network/toolkit.git"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.5.0",
+  "dependencies": {
+    "chalk": "^5.1.2",
+    "glob": "^8.0.3",
+    "parse-imports-ts": "^1.0.2",
+    "throat": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/jest": "^27.4.0",
+    "react": "^17.0.2"
+  }
+}

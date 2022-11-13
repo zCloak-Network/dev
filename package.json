@@ -1,13 +1,13 @@
 {
   "author": "zCloak",
-  "bugs": "https://github.com/zCloak-Network/dev/issues",
-  "homepage": "https://github.com/zCloak-Network/dev#readme",
+  "bugs": "https://github.com/zCloak-Network/toolkit/issues",
+  "homepage": "https://github.com/zCloak-Network/toolkit#readme",
   "license": "Apache-2.0",
   "packageManager": "yarn@3.2.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/zCloak-Network/dev.git"
+    "url": "https://github.com/zCloak-Network/toolkit.git"
   },
   "sideEffects": false,
   "type": "commonjs",
@@ -22,7 +22,7 @@
   "scripts": {
     "build": "zcloak-dev-build-ts",
     "build:extra": "(cd packages/dev && copyfiles config/* scripts/* build)",
-    "build:release": "zcloak-ci-ghact-build --skip-beta",
+    "build:release": "zcloak-ci-ghact-build",
     "clean": "zcloak-dev-clean-build",
     "lint": "zcloak-dev-run-lint",
     "postinstall": "./packages/dev/scripts/zcloak-dev-yarn-only.mjs",

@@ -6,7 +6,6 @@ import babel from '@babel/cli/lib/babel/dir.js';
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
-import rimraf from 'rimraf';
 
 import { copySync } from './copy.mjs';
 import { __dirname } from './dirname.mjs';
@@ -20,20 +19,6 @@ const CPX = ['patch', 'js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', '
   .concat(['package.json', 'README.md', 'LICENSE']);
 
 console.log('$ zcloak-dev-build-ts', process.argv.slice(2).join(' '));
-
-const IGNORE_IMPORTS = [
-  // node
-  'crypto',
-  'fs',
-  'path',
-  'process',
-  'readline',
-  'util',
-  // other
-  '@jest/globals',
-  'react',
-  'react-native'
-];
 
 // webpack build
 function buildWebpack() {
@@ -76,79 +61,6 @@ async function buildBabel(dir, type) {
 
 function witeJson(path, json) {
   fs.writeFileSync(path, `${JSON.stringify(json, null, 2)}\n`);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function adjustJsPath(pkgCwd, pkgJson, dir, f, isDeclare) {
-  if (f.startsWith('.')) {
-    if (f.endsWith('.js') || f.endsWith('.json')) {
-      // ignore, these are already fully-specified
-      return null;
-    }
-
-    const dirPath = path.join(process.cwd(), dir, f);
-    const jsFile = `${f}.js`;
-    const jsPath = path.join(process.cwd(), dir, jsFile);
-
-    if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
-      // this is a directory, append index.js
-      return `${f}/index.js`;
-    } else if (fs.existsSync(jsPath)) {
-      // local source file
-      return jsFile;
-    }
-  }
-
-  // do not adjust
-  return null;
-}
-
-function rewriteEsmImports(pkgCwd, pkgJson, dir, replacer) {
-  if (!fs.existsSync(dir)) {
-    return;
-  }
-
-  fs.readdirSync(dir).forEach((p) => {
-    const thisPath = path.join(process.cwd(), dir, p);
-
-    if (fs.statSync(thisPath).isDirectory()) {
-      rewriteEsmImports(pkgCwd, pkgJson, `${dir}/${p}`, replacer);
-    } else if (
-      thisPath.endsWith('.js') ||
-      thisPath.endsWith('.ts') ||
-      thisPath.endsWith('.tsx') ||
-      thisPath.endsWith('.md')
-    ) {
-      fs.writeFileSync(
-        thisPath,
-        fs
-          .readFileSync(thisPath, 'utf8')
-          .split('\n')
-          .map((line) =>
-            line
-              // handle import/export
-              .replace(/(import|export) (.*) from '(.*)'/g, (o, t, a, f) => {
-                const adjusted = replacer(pkgCwd, pkgJson, dir, f);
-
-                return adjusted ? `${t} ${a} from '${adjusted}'` : o;
-              })
-              // handle augmented inputs
-              .replace(/(import|declare module) '(.*)'/g, (o, t, f) => {
-                const adjusted = replacer(pkgCwd, pkgJson, dir, f, t !== 'import');
-
-                return adjusted ? `${t} '${adjusted}'` : o;
-              })
-              // handle dynamic imports
-              .replace(/( import|^import)\('(.*)'\)/g, (o, t, f) => {
-                const adjusted = replacer(pkgCwd, pkgJson, dir, f);
-
-                return adjusted ? `${t}('${adjusted}')` : o;
-              })
-          )
-          .join('\n')
-      );
-    }
-  });
 }
 
 function relativePath(value) {
@@ -489,110 +401,6 @@ function lintOutput(dir) {
   );
 }
 
-function getReferences(config) {
-  const configPath = path.join(process.cwd(), config);
-
-  if (fs.existsSync(configPath)) {
-    try {
-      return [
-        JSON.parse(fs.readFileSync(configPath, 'utf-8')).references.map(({ path }) =>
-          path.replace('../', '').replace('/tsconfig.build.json', '')
-        ),
-        true
-      ];
-    } catch (error) {
-      console.error(`Unable to parse ${configPath}`);
-
-      throw error;
-    }
-  }
-
-  return [[], false];
-}
-
-function lintDependencies(dir, locals) {
-  const {
-    dependencies = {},
-    devDependencies = {},
-    name,
-    private: isPrivate,
-    optionalDependencies = {},
-    peerDependencies = {}
-  } = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
-
-  if (isPrivate) {
-    return;
-  }
-
-  const deps = [
-    ...Object.keys(dependencies),
-    ...Object.keys(peerDependencies),
-    ...Object.keys(optionalDependencies)
-  ];
-  const devDeps = [...Object.keys(devDependencies), ...deps];
-  const [references] = getReferences('tsconfig.build.json');
-  const [devRefs, hasDevConfig] = getReferences('tsconfig.spec.json');
-  const refsFound = [];
-
-  throwOnErrors(
-    loopFiles(['.ts', '.tsx'], dir, 'src', (full, l, n) => {
-      if (l.startsWith("import '") || (l.startsWith('import ') && l.includes(" from '"))) {
-        const dep = l
-          .split(l.includes(" from '") ? " from '" : " '")[1]
-          .split("'")[0]
-          .split('/')
-          .slice(0, 2)
-          .join('/');
-
-        if (name !== dep && !dep.startsWith('.') && !IGNORE_IMPORTS.includes(dep)) {
-          const local = locals.find(([, name]) => name === dep);
-          const isTest =
-            full.endsWith('.spec.ts') ||
-            full.endsWith('.test.ts') ||
-            full.endsWith('.manual.ts') ||
-            full.includes('/test/');
-
-          if (!(isTest ? devDeps : deps).includes(dep)) {
-            return createError(full, l, n, `${dep} is not included in package.json dependencies`);
-          } else if (local) {
-            const ref = local[0];
-
-            if (!(isTest && hasDevConfig ? devRefs : references).includes(ref)) {
-              return createError(
-                full,
-                l,
-                n,
-                `../${ref} not included in ${
-                  isTest && hasDevConfig ? 'tsconfig.spec.json' : 'tsconfig.build.json'
-                } references`
-              );
-            }
-
-            if (!refsFound.includes(ref)) {
-              refsFound.push(ref);
-            }
-          }
-        }
-
-        return null;
-      }
-    })
-  );
-
-  const extraRefs = references.filter((r) => !refsFound.includes(r));
-
-  if (extraRefs.length) {
-    throwOnErrors([
-      createError(
-        `${dir}/tsconfig.build.json`,
-        extraRefs.join(', '),
-        -1,
-        'Unused tsconfig.build.json references found'
-      )
-    ]);
-  }
-}
-
 function timeIt(label, fn) {
   const start = Date.now();
 
@@ -601,7 +409,7 @@ function timeIt(label, fn) {
   console.log(`${label} (${Date.now() - start}ms)`);
 }
 
-async function buildJs(repoPath, dir, locals) {
+async function buildJs(repoPath, dir) {
   const pkgJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
   const { name, version } = pkgJson;
 
@@ -610,25 +418,15 @@ async function buildJs(repoPath, dir, locals) {
   orderPackageJson(repoPath, dir, pkgJson);
 
   if (!fs.existsSync(path.join(process.cwd(), '.skip-build'))) {
-    const cjsRoot = path.join(process.cwd(), 'src/cjs');
-
-    if (fs.existsSync(path.join(cjsRoot, 'dirname.d.ts'))) {
-      rimraf.sync(cjsRoot);
-    }
-
     if (fs.existsSync(path.join(process.cwd(), 'public'))) {
       buildWebpack();
     } else {
       await buildBabel(dir, 'cjs');
       await buildBabel(dir, 'esm');
 
-      // adjust the import paths
-      rewriteEsmImports(process.cwd(), pkgJson, 'build-swc-esm', adjustJsPath);
-
       timeIt('Successfully built exports', () => buildExports());
       timeIt('Successfully linted configs', () => {
         lintOutput(dir);
-        lintDependencies(dir, locals);
       });
     }
   }
@@ -657,22 +455,12 @@ async function main() {
     .filter(
       (dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src'))
     );
-  const locals = [];
-
-  // get all package names
-  for (const dir of dirs) {
-    const { name } = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), dir, './package.json'), 'utf-8')
-    );
-
-    locals.push([dir, name]);
-  }
 
   // build packages
   for (const dir of dirs) {
     process.chdir(dir);
 
-    await buildJs(repoPath, dir, locals);
+    await buildJs(repoPath, dir);
 
     process.chdir('..');
   }

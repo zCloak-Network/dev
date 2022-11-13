@@ -3,7 +3,10 @@
   "compilerOptions": {
     "composite": true,
     "paths": {
-      "@zcloak/dev/*": ["dev/src/*"]
+      "@zcloak/dev": ["dev/src"],
+      "@zcloak/dev/*": ["dev/src/*"],
+      "@zcloak/lint": ["lint/src"],
+      "@zcloak/lint/*": ["lint/src/*"]
     },
     "skipLibCheck": true
   }

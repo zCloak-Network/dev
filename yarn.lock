@@ -2960,6 +2960,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/glob@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@types/glob@npm:8.0.0"
+  dependencies:
+    "@types/minimatch": "*"
+    "@types/node": "*"
+  checksum: 1817b05f5a8aed851d102a65b5e926d5c777bef927ea62b36d635860eef5364f2046bb5a692d135b6f2b28f34e4a9d44ade9396122c0845bcc7636d35f624747
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.5
   resolution: "@types/graceful-fs@npm:4.1.5"
@@ -3051,6 +3061,13 @@ __metadata:
   version: 3.0.1
   resolution: "@types/mime@npm:3.0.1"
   checksum: 4040fac73fd0cea2460e29b348c1a6173da747f3a87da0dbce80dd7a9355a3d0e51d6d9a401654f3e5550620e3718b5a899b2ec1debf18424e298a2c605346e7
+  languageName: node
+  linkType: hard
+
+"@types/minimatch@npm:*":
+  version: 5.1.2
+  resolution: "@types/minimatch@npm:5.1.2"
+  checksum: 0391a282860c7cb6fe262c12b99564732401bdaa5e395bee9ca323c312c1a0f45efbf34dce974682036e857db59a5c9b1da522f3d6055aeead7097264c8705a8
   languageName: node
   linkType: hard
 
@@ -3645,6 +3662,7 @@ __metadata:
     zcloak-dev-circular: ./scripts/zcloak-dev-circular.mjs
     zcloak-dev-clean-build: ./scripts/zcloak-dev-clean-build.mjs
     zcloak-dev-copy-to: ./scripts/zcloak-dev-copy-to.mjs
+    zcloak-dev-lint-dependencies: ./scripts/zcloak-dev-lint-dependencies.mjs
     zcloak-dev-run-lint: ./scripts/zcloak-dev-run-lint.mjs
     zcloak-dev-run-prettier: ./scripts/zcloak-dev-run-prettier.mjs
     zcloak-dev-run-test: ./scripts/zcloak-dev-run-test.mjs
@@ -3656,6 +3674,20 @@ __metadata:
     zcloak-exec-rollup: ./scripts/zcloak-exec-rollup.mjs
     zcloak-exec-tsc: ./scripts/zcloak-exec-tsc.mjs
     zcloak-exec-webpack: ./scripts/zcloak-exec-webpack.mjs
+  languageName: unknown
+  linkType: soft
+
+"@zcloak/lint@workspace:packages/lint":
+  version: 0.0.0-use.local
+  resolution: "@zcloak/lint@workspace:packages/lint"
+  dependencies:
+    "@types/glob": ^8.0.0
+    "@types/jest": ^27.4.0
+    chalk: ^5.1.2
+    glob: ^8.0.3
+    parse-imports-ts: ^1.0.2
+    react: ^17.0.2
+    throat: ^6.0.1
   languageName: unknown
   linkType: soft
 
@@ -4614,6 +4646,13 @@ __metadata:
     ansi-styles: ^4.1.0
     supports-color: ^7.1.0
   checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
+  languageName: node
+  linkType: hard
+
+"chalk@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "chalk@npm:5.1.2"
+  checksum: 804d7485e33531abe45b14e91026ceb5615974a8c04259ab0806f214a7666f6ea03e39ab124f7d5a0c78a83fda89005f236db3c5f10c2abe9ae875f7aa56bcb5
   languageName: node
   linkType: hard
 
@@ -9959,6 +9998,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-imports-ts@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "parse-imports-ts@npm:1.0.2"
+  peerDependencies:
+    typescript: ^4.5.5
+  checksum: 38c48f9cb5f57a5ac18b7b86644b61abae9b2825fe702ea488b8efcfb9b80966ace48edbb36f555b7077fb6a36b09802785d2d75b994197c7c6527e535219cc4
+  languageName: node
+  linkType: hard
+
 "parse-json@npm:^5.0.0, parse-json@npm:^5.2.0":
   version: 5.2.0
   resolution: "parse-json@npm:5.2.0"
@@ -11816,6 +11864,13 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: b6937a38c80c7f84d9c11dd75e49d5c44f71d95e810a3250bd1f1797fc7117c57698204adf676b71497acc205d769d65c16ae8fa10afad832ae1322630aef10a
+  languageName: node
+  linkType: hard
+
+"throat@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "throat@npm:6.0.1"
+  checksum: 782d4171ee4e3cf947483ed2ff1af3e17cc4354c693b9d339284f61f99fbc401d171e0b0d2db3295bb7d447630333e9319c174ebd7ef315c6fb791db9675369c
   languageName: node
   linkType: hard
 
