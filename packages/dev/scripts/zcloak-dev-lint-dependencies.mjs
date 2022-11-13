@@ -5,8 +5,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import { error } from './feedback.js';
-import { lintDependencies } from './index.js';
+import { lintDependencies } from '@zcloak/lint';
+import { error } from '@zcloak/lint/feedback';
 
 console.log('$ zcloak-dev-lint-dependencies', process.argv.slice(2).join(' '));
 
