@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.6.3 Nov 15, 2022
+
+Changes:
+
+- fix zcloak-dev-run-lint tsc not throw error.
+
 ## 0.6.2 Nov 15, 2022
 
 Changes:
