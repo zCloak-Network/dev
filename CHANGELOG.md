@@ -1,11 +1,16 @@
 # CHANGELOG
 
+## 0.6.2 Nov 15, 2022
+
+Changes:
+
+- fix zcloak-lint would not lint the type dependencies in locals.
+
 ## 0.6.1 Nov 13, 2022
 
 Changes:
 
 - fix @zcloak/lint dependencies.
-
 
 ## 0.6.0 Nov 13, 2022
 

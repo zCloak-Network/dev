@@ -235,28 +235,26 @@ function getErrors(
 
   imports.forEach((i) => {
     // Report local package in tsconfig.build.json
-    if (i.type === PackageType.NormalImport) {
-      const local = locals.find(([, name]) => name === i.name);
+    const local = locals.find(([, name]) => name === i.name);
 
-      if (local) {
-        const [references] = getReferences('tsconfig.build.json');
+    if (local) {
+      const [references] = getReferences('tsconfig.build.json');
 
-        const ref = local[0];
+      const ref = local[0];
 
-        if (references.includes(ref)) {
-          return;
-        }
-      } else {
+      if (references.includes(ref)) {
         return;
       }
+    } else {
+      return;
+    }
 
-      if (i.files.length > 0) {
-        result.errors.push(
-          `The package "${i.name}" is used in the files ${i.files
-            .map((file) => `"${base}/${file}"`)
-            .join(',')}. but it is missing from the referrences in "${base}/tsconfig.build.json".`
-        );
-      }
+    if (i.files.length > 0) {
+      result.errors.push(
+        `The package "${i.name}" is used in the files ${i.files
+          .map((file) => `"${base}/${file}"`)
+          .join(',')}. but it is missing from the referrences in "${base}/tsconfig.build.json".`
+      );
     }
   });
 
