@@ -41,7 +41,7 @@ async function buildBabel(dir, type) {
             path.join(__dirname, '../config/babel-config-cjs.cjs')
     },
     cliOptions: {
-      extensions: ['.ts', '.tsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
       filenames: ['src'],
       ignore: '**/*.d.ts',
       outDir,

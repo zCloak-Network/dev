@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.6.4 Nov 17, 2022
+
+Changes:
+
+- allow to build js and jsx files.
+
 ## 0.6.3 Nov 15, 2022
 
 Changes:
