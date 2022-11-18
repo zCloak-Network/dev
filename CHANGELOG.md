@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.6.6 Nov 18, 2022
+
+Changes:
+
+- skip lint dependencies when hash .skip-build file.
+
+
 ## 0.6.5 Nov 18, 2022
 
 Changes:
