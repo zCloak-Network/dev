@@ -24,7 +24,7 @@ module.exports = function (isEsm, doRewrite) {
       'babel-plugin-module-extension-resolver',
       {
         dstExtension: '.js',
-        srcExtensions: ['.ts', '.tsx']
+        srcExtensions: ['.ts', '.tsx', '.js', '.jsx']
       }
     ]
   ]);
