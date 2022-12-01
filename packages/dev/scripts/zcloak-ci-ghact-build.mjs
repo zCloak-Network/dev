@@ -110,10 +110,15 @@ async function gitPush() {
 
   const stream = conventionalChangelog({ preset: 'conventionalcommits' }, { version });
 
-  const content = await new Promise((resolve, reject) => {
-    stream.on('data', (data) => resolve(data.toString()));
-    stream.on('error', reject);
-  }).replace(/\n+$/, '\n');
+  const content = (
+    await new Promise((resolve, reject) => {
+      stream.on('data', (data) => {
+        console.log(data.toString());
+        resolve(data.toString());
+      });
+      stream.on('error', reject);
+    })
+  ).replace(/\n+$/, '\n');
 
   const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
