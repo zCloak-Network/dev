@@ -1,0 +1,22 @@
+name: Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-pr:
+    if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
+    name: release-pr
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: release-pr
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          yarn zcloak-ci-ghact-release-pr
