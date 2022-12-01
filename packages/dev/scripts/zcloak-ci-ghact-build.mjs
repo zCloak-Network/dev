@@ -99,17 +99,6 @@ function verBump() {
 
 function gitPush() {
   const version = npmGetVersion();
-  let doGHRelease = false;
-
-  if (process.env.GH_RELEASE_GITHUB_API_TOKEN) {
-    const changes = fs.readFileSync('CHANGELOG.md', 'utf8');
-
-    if (changes.includes(`## ${version}`)) {
-      doGHRelease = true;
-    } else if (!version.includes('-')) {
-      throw new Error(`Unable to release, no CHANGELOG entry for ${version}`);
-    }
-  }
 
   execSync('git add --all .');
 
@@ -123,11 +112,9 @@ skip-checks: true"`);
 
   execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
 
-  if (doGHRelease) {
-    const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
+  const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
 
-    execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
-  }
+  execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
 }
 
 function loopFunc(fn) {
