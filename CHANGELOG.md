@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.7.6](https://github.com/zCloak-Network/toolkit/compare/v0.6.6...v0.7.6) (2022-12-01)
+
+
+### Features
+
+* **dev:** release-pr ci ([#5](https://github.com/zCloak-Network/toolkit/issues/5)) ([cdde6b4](https://github.com/zCloak-Network/toolkit/commit/cdde6b44a501f93a6a51222a15c2ca8b365bf8ec))
+
 ## 0.6.6 Nov 18, 2022
 
 Changes:
