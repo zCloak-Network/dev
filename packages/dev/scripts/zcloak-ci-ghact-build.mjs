@@ -91,7 +91,7 @@ function npmPublish() {
 
 async function verBump() {
   const result = await new Promise((resolve, reject) => {
-    conventionalRecommendedBump({ preset: 'conventionalcommits' }, (err, result) => {
+    conventionalRecommendedBump({ preset: 'angular' }, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -108,7 +108,7 @@ async function verBump() {
 async function gitPush() {
   const version = npmGetVersion();
 
-  const stream = conventionalChangelog({ preset: 'conventionalcommits' }, { version });
+  const stream = conventionalChangelog({ preset: 'angular' }, { version });
 
   const content = (
     await new Promise((resolve, reject) => {
