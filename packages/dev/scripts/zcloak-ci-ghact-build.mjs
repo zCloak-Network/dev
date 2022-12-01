@@ -2,6 +2,8 @@
 // Copyright 2021-2022 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import conventionalChangelog from 'conventional-changelog';
+import conventionalRecommendedBump from 'conventional-recommended-bump';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -87,12 +89,46 @@ function npmPublish() {
   process.chdir('..');
 }
 
-function verBump() {
-  execSync('yarn zcloak-dev-version');
+async function verBump() {
+  const result = await new Promise((resolve, reject) => {
+    conventionalRecommendedBump({ preset: 'conventionalcommits' }, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+  if (result.releaseType) {
+    execSync(`yarn zcloak-dev-version ${result.releaseType}`);
+  }
 }
 
-function gitPush() {
+async function gitPush() {
   const version = npmGetVersion();
+
+  const stream = conventionalChangelog({ preset: 'conventionalcommits' }, { version });
+
+  const content = await new Promise((resolve, reject) => {
+    stream.on('data', (data) => resolve(data.toString()));
+    stream.on('error', reject);
+  }).replace(/\n+$/, '\n');
+
+  const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+
+  console.log('$ write changelog');
+  console.log(content);
+
+  fs.writeFileSync(
+    'CHANGELOG.md',
+    changelog.replace(
+      '# CHANGELOG',
+      `# CHANGELOG
+
+${content}`
+    )
+  );
 
   execSync('git add --all .');
 
@@ -100,9 +136,7 @@ function gitPush() {
   execSync(`git commit --no-status --quiet -m "[CI Skip] release/${
     version.includes('-') ? 'beta' : 'stable'
   } ${version}
-
-
-skip-checks: true"`);
+  skip-checks: true"`);
 
   execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
 
@@ -133,20 +167,24 @@ function loopFunc(fn) {
   }
 }
 
-// first do infrastructure setup
-gitSetup();
-npmSetup();
+async function main() {
+  // first do infrastructure setup
+  gitSetup();
+  npmSetup();
 
-verBump();
+  await verBump();
 
-// perform the actual CI ops
-runClean();
-runCheck();
-runTest();
-runBuild();
+  // perform the actual CI ops
+  runClean();
+  runCheck();
+  runTest();
+  runBuild();
 
-// publish to all GH repos
-gitPush();
+  // publish to all GH repos
+  await gitPush();
 
-// publish to npm
-loopFunc(npmPublish);
+  // publish to npm
+  loopFunc(npmPublish);
+}
+
+main();

@@ -4,8 +4,17 @@
 
 import fs from 'fs';
 import path from 'path';
+import yargs from 'yargs';
 
 import { execSync } from './execute.mjs';
+
+const TYPES = ['major', 'minor', 'patch', 'pre'];
+
+const [type] = yargs(process.argv.slice(2)).demandCommand(1).argv._;
+
+if (!TYPES.includes(type)) {
+  throw new Error(`Invalid version bump "${type}", expected one of ${TYPES.join(', ')}`);
+}
 
 function updateDependencies(dependencies, others, version) {
   return Object.entries(dependencies)
@@ -58,6 +67,8 @@ function updatePackage(version, others, pkgPath, json) {
 }
 
 console.log('$ zcloak-dev-version', process.argv.slice(2).join(' '));
+
+execSync(`yarn version ${type === 'pre' ? 'prerelease' : type}`);
 
 const [rootPath, rootJson] = readRootPkgJson();
 
