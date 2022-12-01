@@ -3696,7 +3696,7 @@ __metadata:
     "@types/yargs": ^17.0.8
     "@typescript-eslint/eslint-plugin": ^5.42.1
     "@typescript-eslint/parser": ^5.42.1
-    "@zcloak/lint": 0.7.6
+    "@zcloak/lint": 0.8.0
     babel-jest: ^29.3.1
     babel-plugin-module-extension-resolver: ^1.0.0-rc.2
     babel-plugin-module-resolver: ^4.1.0
@@ -3768,7 +3768,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zcloak/lint@0.7.6, @zcloak/lint@workspace:packages/lint":
+"@zcloak/lint@0.8.0, @zcloak/lint@workspace:packages/lint":
   version: 0.0.0-use.local
   resolution: "@zcloak/lint@workspace:packages/lint"
   dependencies:

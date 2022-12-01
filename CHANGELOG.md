@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [0.8.0](https://github.com/zCloak-Network/toolkit/compare/v0.7.6...v0.8.0) (2022-12-01)
+
+
+### Features
+
+* **dev:** recommend bump version ([ccb3619](https://github.com/zCloak-Network/toolkit/commit/ccb361962f1ea5f8d1fa55298d3415796460e8c8))
+* **ghact:** remove release-pr github actions ([4dd16b0](https://github.com/zCloak-Network/toolkit/commit/4dd16b07ef611c9659ead1a6819cb9a77c136686))
+
+
+### Bug Fixes
+
+* **ci:** no replace func ([1a4aaf1](https://github.com/zCloak-Network/toolkit/commit/1a4aaf13325554f5b80be3aa7daa4b94e99890e3))
+* **ghact:** remove if ([413821c](https://github.com/zCloak-Network/toolkit/commit/413821cb25d049534fc175b917e2a78d4f64a33e))
+
+
 ## [0.7.6](https://github.com/zCloak-Network/toolkit/compare/v0.6.6...v0.7.6) (2022-12-01)
 
 
