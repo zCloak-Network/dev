@@ -14,8 +14,6 @@ console.log('$ zcloak-ci-ghact-build', process.argv.slice(2).join(' '));
 
 const repo = `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
 
-let withNpm = false;
-
 function runClean() {
   execSync('yarn zcloak-dev-clean-build');
 }
@@ -46,26 +44,8 @@ function npmGetJson() {
   return JSON.parse(fs.readFileSync(npmGetJsonPath(), 'utf8'));
 }
 
-function npmSetJson(json) {
-  fs.writeFileSync(npmGetJsonPath(), `${JSON.stringify(json, null, 2)}\n`);
-}
-
 function npmGetVersion() {
   return npmGetJson().version;
-}
-
-function npmSetVersionFields() {
-  const json = npmGetJson();
-
-  if (!json.versions) {
-    json.versions = {};
-  }
-
-  json.versions.git = json.version;
-
-  json.versions.npm = json.version;
-
-  npmSetJson(json);
 }
 
 function npmSetup() {
@@ -78,7 +58,7 @@ function npmSetup() {
 }
 
 function npmPublish() {
-  if (fs.existsSync('.skip-npm') || !withNpm) {
+  if (fs.existsSync('.skip-npm')) {
     return;
   }
 
@@ -114,19 +94,10 @@ function npmPublish() {
 }
 
 function verBump() {
-  const { version: currentVersion, versions } = npmGetJson();
-  const lastVersion = versions.npm;
-
-  if (currentVersion !== lastVersion) {
-    withNpm = true;
-    // always ensure we have made some changes, so we can commit
-    npmSetVersionFields();
-  }
+  execSync('yarn zcloak-dev-version');
 }
 
 function gitPush() {
-  if (!withNpm) return;
-
   const version = npmGetVersion();
   let doGHRelease = false;
 
@@ -155,7 +126,7 @@ skip-checks: true"`);
   if (doGHRelease) {
     const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
 
-    execSync(`yarn zcloak-exec-ghrelease --draft ${files} --yes`);
+    execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
   }
 }
 

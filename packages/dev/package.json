@@ -17,6 +17,7 @@
   "version": "0.6.6",
   "bin": {
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
+    "zcloak-ci-ghact-release-pr": "./scripts/zcloak-ci-ghact-release-pr.mjs",
     "zcloak-dev-build-ts": "./scripts/zcloak-dev-build-ts.mjs",
     "zcloak-dev-circular": "./scripts/zcloak-dev-circular.mjs",
     "zcloak-dev-clean-build": "./scripts/zcloak-dev-clean-build.mjs",
@@ -30,6 +31,7 @@
     "zcloak-exec-eslint": "./scripts/zcloak-exec-eslint.mjs",
     "zcloak-exec-ghrelease": "./scripts/zcloak-exec-ghrelease.mjs",
     "zcloak-exec-prettier": "./scripts/zcloak-exec-prettier.mjs",
+    "zcloak-exec-release-please": "./scripts/zcloak-exec-release-please.mjs",
     "zcloak-exec-rollup": "./scripts/zcloak-exec-rollup.mjs",
     "zcloak-exec-tsc": "./scripts/zcloak-exec-tsc.mjs",
     "zcloak-exec-webpack": "./scripts/zcloak-exec-webpack.mjs"
@@ -99,6 +101,7 @@
     "minimatch": "^5.1.0",
     "mkdirp": "^1.0.4",
     "prettier": "^2.7.1",
+    "release-please": "^14.17.3",
     "rimraf": "^3.0.2",
     "rollup": "^3.2.5",
     "rollup-plugin-cleanup": "^3.2.1",
