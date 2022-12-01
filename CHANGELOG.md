@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.8.1](https://github.com/zCloak-Network/toolkit/compare/v0.8.0...v0.8.1) (2022-12-01)
+
+
+### Bug Fixes
+
+* use angular instead conventionalcommits ([51c01e5](https://github.com/zCloak-Network/toolkit/commit/51c01e525b134e7d5206536436cc322349dc0725))
+
+
 ## [0.8.0](https://github.com/zCloak-Network/toolkit/compare/v0.7.6...v0.8.0) (2022-12-01)
 
 
