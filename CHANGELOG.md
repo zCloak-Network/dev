@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.10.5](https://github.com/zCloak-Network/toolkit/compare/v0.10.4...v0.10.5) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** skipt npm ([cadf8f2](https://github.com/zCloak-Network/toolkit/commit/cadf8f2656d1fce5638f70e31aabfa1dc33697ef))
+
+
 ## [0.10.4](https://github.com/zCloak-Network/toolkit/compare/v0.10.3...v0.10.4) (2022-12-05)
 
 
