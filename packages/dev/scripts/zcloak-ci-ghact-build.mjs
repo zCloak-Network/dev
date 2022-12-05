@@ -17,6 +17,8 @@ import gitSetup from './gitSetup.mjs';
 
 console.log('$ zcloak-ci-ghact-build', process.argv.slice(2).join(' '));
 
+let level;
+
 const repo = `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
 
 function runClean() {
@@ -114,20 +116,28 @@ async function verBump() {
   console.log(result.reason);
   let releaseType;
 
-  if (result.level === 0) {
+  level = result.level;
+
+  if (level === 0) {
     releaseType = 'major';
-  } else if (result.level === 1) {
+  } else if (level === 1) {
     releaseType = 'minor';
-  } else if (result.level === 2) {
+  } else if (level === 2) {
     releaseType = 'patch';
-  } else {
+  } else if (level === 3) {
     releaseType = 'pre';
+  } else {
+    return;
   }
 
   execSync(`yarn zcloak-dev-version ${releaseType}`);
 }
 
 async function gitPush() {
+  if (level < 4) {
+    return;
+  }
+
   const version = npmGetVersion();
 
   // if it is not beta, write changelog
@@ -188,7 +198,7 @@ async function gitPush() {
 }
 
 function loopFunc(fn) {
-  if (fs.existsSync('packages')) {
+  if (fs.existsSync('packages') && level < 4) {
     fs.readdirSync('packages')
       .filter((dir) => {
         const pkgDir = path.join(process.cwd(), 'packages', dir);
@@ -216,14 +226,14 @@ async function main() {
 
   await verBump();
 
+  // publish to all GH repos
+  await gitPush();
+
   // perform the actual CI ops
   runClean();
   runCheck();
   runTest();
   runBuild();
-
-  // publish to all GH repos
-  await gitPush();
 
   // publish to npm
   loopFunc(npmPublish);

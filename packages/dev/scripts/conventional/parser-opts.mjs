@@ -4,7 +4,7 @@
 export default {
   headerPattern: /^(\w*)(?:\((.*)\))?: (.*)$/,
   headerCorrespondence: ['type', 'scope', 'subject'],
-  noteKeywords: ['BREAKING CHANGE'],
+  noteKeywords: ['BREAKING CHANGE', 'release-as'],
   revertPattern: /^(?:Revert|revert:)\s"?([\s\S]+?)"?\s*This reverts commit (\w*)\./i,
   revertCorrespondence: ['header', 'hash']
 };

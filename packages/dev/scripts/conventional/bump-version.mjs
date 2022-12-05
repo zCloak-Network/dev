@@ -11,10 +11,16 @@ export default (commits) => {
 
   commits.forEach((commit) => {
     if (commit.notes.length > 0) {
-      breakings += commit.notes.length;
-    } else if (commit.type === 'release') {
-      release = true;
-    } else if (commit.type === 'feat') {
+      commit.notes.forEach((note) => {
+        if (note.title === 'BREAKING CHANGE') {
+          breakings++;
+        } else if (note.title === 'release-as') {
+          release = true;
+        }
+      });
+    }
+
+    if (commit.type === 'feat') {
       features++;
     } else if (commit.type === 'fix') {
       fixes++;
@@ -29,16 +35,23 @@ export default (commits) => {
     } else if (fixes > 0) {
       level = 2; // patch
     } else {
-      level = 3; // pre
+      throw new Error('must has breakings, features, fixes when release');
     }
   } else {
-    level = 3;
+    if (breakings + features + fixes === 0) {
+      level = 4;
+    } else {
+      level = 3;
+    }
   }
 
   return {
     level,
-    reason: `Release/${
-      release ? 'stable' : 'beta'
-    } with ${breakings} ${breakings}BREAKING CHANGE, ${features} Features, ${fixes} Bug Fix`
+    reason:
+      level === 4
+        ? 'nothing to do'
+        : `release/${
+            release ? 'stable' : 'beta'
+          } with ${breakings} ${breakings}BREAKING CHANGE, ${features} Features, ${fixes} Bug Fix`
   };
 };
