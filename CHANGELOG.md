@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.10.2](https://github.com/zCloak-Network/toolkit/compare/v0.10.0...v0.10.2) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** remove spaces. ([242f481](https://github.com/zCloak-Network/toolkit/commit/242f481e6110989d5c87b256a8e69980fe73aa0d))
+* **ci:** when the patch version number is 0, the changelog output error. ([88cfd2d](https://github.com/zCloak-Network/toolkit/commit/88cfd2de16ba04148728e06773cba880f3bd4332))
+
+
 ##[0.10.1](https://github.com/zCloak-Network/toolkit/compare/v0.10.0...v0.10.1) (2022-12-05)
 
 
