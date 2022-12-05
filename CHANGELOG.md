@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.10.3](https://github.com/zCloak-Network/toolkit/compare/v0.10.2...v0.10.3) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** skip npm when level=4 ([4122883](https://github.com/zCloak-Network/toolkit/commit/4122883d15a7fd834850c8441208ab65cc7f031f))
+
+
 ## [0.10.2](https://github.com/zCloak-Network/toolkit/compare/v0.10.0...v0.10.2) (2022-12-05)
 
 
