@@ -8,6 +8,9 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
+import whatBump from './conventional/bump-version.mjs';
+import parserOpts from './conventional/parser-opts.mjs';
+import writerOpts from './conventional/writer-opts.mjs';
 import { copySync } from './copy.mjs';
 import { execSync } from './execute.mjs';
 import gitSetup from './gitSetup.mjs';
@@ -91,63 +94,97 @@ function npmPublish() {
 
 async function verBump() {
   const result = await new Promise((resolve, reject) => {
-    conventionalRecommendedBump({ preset: 'angular' }, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
+    conventionalRecommendedBump(
+      {
+        config: {
+          parserOpts,
+          recommendedBumpOpts: { whatBump }
+        }
+      },
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
       }
-    });
+    );
   });
 
-  if (result.releaseType) {
-    execSync(`yarn zcloak-dev-version ${result.releaseType}`);
+  console.log(result.reason);
+  let releaseType;
+
+  if (result.level === 0) {
+    releaseType = 'major';
+  } else if (result.level === 1) {
+    releaseType = 'minor';
+  } else if (result.level === 2) {
+    releaseType = 'patch';
+  } else {
+    releaseType = 'pre';
   }
+
+  execSync(`yarn zcloak-dev-version ${releaseType}`);
 }
 
 async function gitPush() {
   const version = npmGetVersion();
 
-  const stream = conventionalChangelog({ preset: 'angular' }, { version });
+  // if it is not beta, write changelog
+  if (!version.includes('-')) {
+    const stream = conventionalChangelog(
+      {
+        config: {
+          parserOpts,
+          writerOpts
+        }
+      },
+      { version }
+    );
 
-  const content = (
-    await new Promise((resolve, reject) => {
-      stream.on('data', (data) => {
-        console.log(data.toString());
-        resolve(data.toString());
-      });
-      stream.on('error', reject);
-    })
-  ).replace(/\n+$/, '\n');
+    const content = (
+      await new Promise((resolve, reject) => {
+        stream.on('data', (data) => {
+          console.log(data.toString());
+          resolve(data.toString());
+        });
+        stream.on('error', reject);
+      })
+    ).replace(/\n+$/, '\n');
 
-  const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+    const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
-  console.log('$ write changelog');
-  console.log(content);
+    console.log('$ write changelog');
+    console.log(content);
 
-  fs.writeFileSync(
-    'CHANGELOG.md',
-    changelog.replace(
-      '# CHANGELOG',
-      `# CHANGELOG
+    fs.writeFileSync(
+      'CHANGELOG.md',
+      changelog.replace(
+        '# CHANGELOG',
+        `# CHANGELOG
 
-${content}`
-    )
-  );
+  ${content}`
+      )
+    );
+  }
 
   execSync('git add --all .');
 
   // add the skip checks for GitHub ...
-  execSync(`git commit --no-status --quiet -m "[CI Skip] release/${
-    version.includes('-') ? 'beta' : 'stable'
-  } ${version}
-  skip-checks: true"`);
+  execSync(
+    `git commit --no-status --quiet -m "chore: release/${
+      version.includes('-') ? 'beta' : 'stable'
+    } ${version}"`
+  );
 
   execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
 
-  const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
+  // github release when not a beta version
+  if (!version.includes('-')) {
+    const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
 
-  execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
+    execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
+  }
 }
 
 function loopFunc(fn) {
