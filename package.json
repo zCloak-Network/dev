@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "zcloak-dev-build-ts",
-    "build:extra": "(cd packages/dev && copyfiles config/* scripts/* build)",
+    "build:extra": "(cd packages/dev && copyfiles config/** scripts/** build)",
     "build:release": "zcloak-ci-ghact-build",
     "clean": "zcloak-dev-clean-build",
     "lint": "zcloak-dev-run-lint",
