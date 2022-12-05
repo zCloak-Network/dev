@@ -1,6 +1,6 @@
 # CHANGELOG
 
-  # [0.10.0](https://github.com/zCloak-Network/toolkit/compare/v0.8.1...v0.10.0) (2022-12-05)
+## [0.10.0](https://github.com/zCloak-Network/toolkit/compare/v0.8.1...v0.10.0) (2022-12-05)
 
 
 ### Bug Fixes
