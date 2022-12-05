@@ -173,7 +173,7 @@ async function gitPush() {
         '# CHANGELOG',
         `# CHANGELOG
 
-  ${content}`
+${content}`
       )
     );
   }
