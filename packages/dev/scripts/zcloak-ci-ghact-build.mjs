@@ -134,7 +134,7 @@ async function verBump() {
 }
 
 async function gitPush() {
-  if (level < 4) {
+  if (level === 4) {
     return;
   }
 
@@ -226,14 +226,14 @@ async function main() {
 
   await verBump();
 
-  // publish to all GH repos
-  await gitPush();
-
   // perform the actual CI ops
   runClean();
   runCheck();
   runTest();
   runBuild();
+
+  // publish to all GH repos
+  await gitPush();
 
   // publish to npm
   loopFunc(npmPublish);
