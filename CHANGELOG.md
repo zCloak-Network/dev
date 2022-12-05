@@ -1,5 +1,19 @@
 # CHANGELOG
 
+  # [0.10.0](https://github.com/zCloak-Network/toolkit/compare/v0.8.1...v0.10.0) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** not push changes because the level is less 4. ([9b159cc](https://github.com/zCloak-Network/toolkit/commit/9b159cc46fecd40dd147b22bc3892c6eb1748977))
+
+
+### Features
+
+* **ci:** add release-as note ([91560f9](https://github.com/zCloak-Network/toolkit/commit/91560f926dfa064e4d0e264b408f980854d71366))
+* **ci:** bump version by commit ([552b099](https://github.com/zCloak-Network/toolkit/commit/552b099a5732be84ab8ee451fc66f2d59ed6c047))
+
+
 ## [0.8.1](https://github.com/zCloak-Network/toolkit/compare/v0.8.0...v0.8.1) (2022-12-01)
 
 
