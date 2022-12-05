@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.10.4](https://github.com/zCloak-Network/toolkit/compare/v0.10.3...v0.10.4) (2022-12-05)
+
+
+### Bug Fixes
+
+* **build:** fix build includes error ([96f3e12](https://github.com/zCloak-Network/toolkit/commit/96f3e12da2b8aa10752d3836791abc87546d90b9))
+
+
 ## [0.10.3](https://github.com/zCloak-Network/toolkit/compare/v0.10.2...v0.10.3) (2022-12-05)
 
 
