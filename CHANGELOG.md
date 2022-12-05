@@ -1,5 +1,13 @@
 # CHANGELOG
 
+  ##[0.10.1](https://github.com/zCloak-Network/toolkit/compare/v0.10.0...v0.10.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **ci:** when the patch version number is 0, the changelog output error. ([88cfd2d](https://github.com/zCloak-Network/toolkit/commit/88cfd2de16ba04148728e06773cba880f3bd4332))
+
+
 ## [0.10.0](https://github.com/zCloak-Network/toolkit/compare/v0.8.1...v0.10.0) (2022-12-05)
 
 
