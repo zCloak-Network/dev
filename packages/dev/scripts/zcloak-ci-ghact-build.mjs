@@ -59,7 +59,7 @@ function npmSetup() {
 }
 
 function npmPublish() {
-  if (fs.existsSync('.skip-npm') && level === 4) {
+  if (fs.existsSync('.skip-npm') || level === 4) {
     return;
   }
 
