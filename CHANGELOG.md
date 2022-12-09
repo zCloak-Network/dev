@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.11.1](https://github.com/zCloak-Network/toolkit/compare/v0.11.0...v0.11.1) (2022-12-09)
+
+
+### Bug Fixes
+
+* **ci:** use public folder exists instead .skip-lint ([45c2f78](https://github.com/zCloak-Network/toolkit/commit/45c2f786c72dea60fcdca159ea77135b883e2a92))
+
+
 ## [0.11.0](https://github.com/zCloak-Network/toolkit/compare/v0.10.5...v0.11.0) (2022-12-09)
 
 
