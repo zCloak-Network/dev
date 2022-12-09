@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.11.3](https://github.com/zCloak-Network/toolkit/compare/v0.11.2...v0.11.3) (2022-12-09)
+
+
+### Bug Fixes
+
+* **ci:** skip public folder ([a50909a](https://github.com/zCloak-Network/toolkit/commit/a50909aae32deacd97ee2aeb28befd469c2f4d02))
+
+
 ## [0.11.2](https://github.com/zCloak-Network/toolkit/compare/v0.11.1...v0.11.2) (2022-12-09)
 
 
