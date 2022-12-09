@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.11.2](https://github.com/zCloak-Network/toolkit/compare/v0.11.1...v0.11.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* **ci:** public folder exists error ([700c37d](https://github.com/zCloak-Network/toolkit/commit/700c37d557157a061f83cd88783840d3fdd86249))
+
+
 ## [0.11.1](https://github.com/zCloak-Network/toolkit/compare/v0.11.0...v0.11.1) (2022-12-09)
 
 
