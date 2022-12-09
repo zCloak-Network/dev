@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.11.0](https://github.com/zCloak-Network/toolkit/compare/v0.10.5...v0.11.0) (2022-12-09)
+
+
+### Features
+
+* **ci:** add .skip-lint file to skip lint dependencies ([6c02015](https://github.com/zCloak-Network/toolkit/commit/6c02015830dde1368f61ecfb894deebf8d4eca2a))
+
+
 ## [0.10.5](https://github.com/zCloak-Network/toolkit/compare/v0.10.4...v0.10.5) (2022-12-05)
 
 
