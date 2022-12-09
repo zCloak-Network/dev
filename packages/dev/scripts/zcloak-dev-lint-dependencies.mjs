@@ -34,7 +34,10 @@ console.log('$ zcloak-dev-lint-dependencies', process.argv.slice(2).join(' '));
   for (const dir of dirs) {
     process.chdir(dir);
 
-    if (!fs.existsSync(path.join(process.cwd(), '.skip-build'))) {
+    if (
+      !fs.existsSync(path.join(process.cwd(), '.skip-lint')) ||
+      !fs.existsSync(path.join(process.cwd(), '.skip-build'))
+    ) {
       const { errors: _errors } = await lintDependencies(`packages/${dir}`, locals);
 
       errors.push(..._errors);
