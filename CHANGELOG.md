@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.12.0](https://github.com/zCloak-Network/toolkit/compare/v0.11.3...v0.12.0) (2022-12-15)
+
+
+### Features
+
+* upgrade deps ([7323b4c](https://github.com/zCloak-Network/toolkit/commit/7323b4cd3c85268c327468c2a8bcdee77333fcdd))
+
+
 ## [0.11.3](https://github.com/zCloak-Network/toolkit/compare/v0.11.2...v0.11.3) (2022-12-09)
 
 
