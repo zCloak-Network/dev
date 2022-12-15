@@ -16,14 +16,14 @@
   "type": "module",
   "version": "0.11.3",
   "dependencies": {
-    "chalk": "^5.1.2",
+    "chalk": "^5.2.0",
     "glob": "^8.0.3",
     "parse-imports-ts": "^1.0.2",
     "throat": "^6.0.1"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
-    "@types/jest": "^27.4.0",
-    "react": "^17.0.2"
+    "@types/jest": "^29.2.4",
+    "react": "^18.2.0"
   }
 }

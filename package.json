@@ -29,8 +29,5 @@
   "devDependencies": {
     "@zcloak/dev": "workspace:packages/dev",
     "copyfiles": "^2.4.1"
-  },
-  "resolutions": {
-    "typescript": "^4.8.4"
   }
 }
