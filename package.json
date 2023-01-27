@@ -28,6 +28,13 @@
   },
   "devDependencies": {
     "@zcloak/dev": "workspace:packages/dev",
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "lerna-changelog": "^2.2.0"
+  },
+  "changelog": {
+    "labels": {
+      "feature": "New Feature",
+      "bug": "Bug Fix"
+    }
   }
 }
