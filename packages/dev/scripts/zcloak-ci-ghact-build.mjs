@@ -136,14 +136,16 @@ async function verBump() {
     }
   }
 
-  if (level === 3) {
-    releaseType = 'major';
-  } else if (level === 4) {
-    releaseType = 'minor';
-  } else if (level === 5) {
-    releaseType = 'patch';
-  } else {
-    throw new Error(`error level: ${level}`);
+  if (level >= 3) {
+    if (level === 3) {
+      releaseType = 'major';
+    } else if (level === 4) {
+      releaseType = 'minor';
+    } else if (level === 5) {
+      releaseType = 'patch';
+    } else {
+      throw new Error(`error level: ${level}`);
+    }
   }
 
   execSync(`yarn zcloak-dev-version ${releaseType}`);
