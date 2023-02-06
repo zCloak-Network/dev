@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.3](https://github.com/zCloak-Network/toolkit/compare/v0.14.2...v0.14.3) (2023-02-06)
+
+
+### Bug Fixes
+
+* stable version will faild when bump version ([5650002](https://github.com/zCloak-Network/toolkit/commit/5650002ad6fd00f9cf50aacf3a8fa63c3fdc62cc))
+
+
 ## [0.14.2](https://github.com/zCloak-Network/toolkit/compare/v0.14.1...v0.14.2) (2023-02-06)
 
 
