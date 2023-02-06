@@ -9,8 +9,8 @@ import rimraf from 'rimraf';
 const PKGS = path.join(process.cwd(), 'packages');
 const DIRS = [
   'build',
-  ...['cjs', 'esm', 'deno', 'docs', 'swc', 'swc-cjs', 'swc-esm'].map((d) => `build-${d}`),
-  ...['tsbuildinfo', '*.tsbuildinfo'].map((d) => `tsconfig.${d}`)
+  ...['cjs', 'esm'].map((d) => `build-${d}`),
+  ...['tsbuildinfo', 'build.tsbuildinfo'].map((d) => `tsconfig.${d}`)
 ];
 
 console.log('$ zcloak-dev-clean-build', process.argv.slice(2).join(' '));

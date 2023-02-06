@@ -19,6 +19,8 @@ const CPX = ['patch', 'js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', '
 
 console.log('$ zcloak-dev-build-ts', process.argv.slice(2).join(' '));
 
+const rootPkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
+
 // webpack build
 function buildWebpack() {
   const config = WP_CONFIGS.find((c) => fs.existsSync(path.join(process.cwd(), c)));
@@ -200,6 +202,15 @@ function buildExports() {
 
   // cleanup extraneous fields
   delete pkg.devDependencies;
+
+  // replace workspace: version
+  if (pkg.dependencies) {
+    Object.entries(pkg.dependencies).forEach(([name, version]) => {
+      if (version.startsWith('workspace:')) {
+        pkg.dependencies[name] = version.replace('workspace:', '') + rootPkg.version;
+      }
+    });
+  }
 
   if (!pkg.main && fs.existsSync(path.join(buildDir, 'index.d.ts'))) {
     pkg.main = 'index.js';
@@ -434,15 +445,13 @@ async function buildJs(repoPath, dir) {
 async function main() {
   execSync('yarn zcloak-dev-clean-build');
 
-  const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
-
-  if (pkg.scripts && pkg.scripts['build:extra']) {
+  if (rootPkg.scripts && rootPkg.scripts['build:extra']) {
     execSync('yarn build:extra');
   }
 
-  const repoPath = pkg.repository.url.split('https://github.com/')[1].split('.git')[0];
+  const repoPath = rootPkg.repository.url.split('https://github.com/')[1].split('.git')[0];
 
-  orderPackageJson(repoPath, null, pkg);
+  orderPackageJson(repoPath, null, rootPkg);
   execSync('yarn zcloak-exec-tsc --build tsconfig.build.json');
 
   process.chdir('packages');
