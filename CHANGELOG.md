@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.13.0](https://github.com/zCloak-Network/toolkit/compare/v0.12.0...v0.13.0) (2023-02-06)
+
+
+### Features
+
+* **lint, dev:** up deps, add skip-beta arg for zcloak-ci-ghact-build. ([00c581b](https://github.com/zCloak-Network/toolkit/commit/00c581bdc30fa1c37159718b536f873c709c89a9))
+
+
 ## [0.12.0](https://github.com/zCloak-Network/toolkit/compare/v0.11.3...v0.12.0) (2022-12-15)
 
 
