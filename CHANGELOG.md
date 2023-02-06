@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.0](https://github.com/zCloak-Network/toolkit/compare/v0.13.0...v0.14.0) (2023-02-06)
+
+
+### Features
+
+* **zcloak-dev-build-ts:** replace workspace protocol version to semver in package dependencies. ([80662d6](https://github.com/zCloak-Network/toolkit/commit/80662d6f0dd11f3765064a1e35108bb88da4555b))
+
+
 ## [0.13.0](https://github.com/zCloak-Network/toolkit/compare/v0.12.0...v0.13.0) (2023-02-06)
 
 
