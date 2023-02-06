@@ -25,9 +25,7 @@ module.exports = {
     '.vscode/**',
     '.yarn/**',
     'babel.config.cjs',
-    'jest.config.cjs',
-    'rollup.config.js',
-    'rollup.config.mjs'
+    'jest.config.cjs'
   ],
   extends: [
     'eslint:recommended',

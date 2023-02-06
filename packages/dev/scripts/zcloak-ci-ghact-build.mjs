@@ -7,6 +7,7 @@ import conventionalRecommendedBump from 'conventional-recommended-bump';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import yargs from 'yargs';
 
 import whatBump from './conventional/bump-version.mjs';
 import parserOpts from './conventional/parser-opts.mjs';
@@ -16,6 +17,15 @@ import { execSync } from './execute.mjs';
 import gitSetup from './gitSetup.mjs';
 
 console.log('$ zcloak-ci-ghact-build', process.argv.slice(2).join(' '));
+
+const argv = yargs(process.argv.slice(2))
+  .options({
+    'skip-beta': {
+      description: 'Do not increment as beta',
+      type: 'boolean'
+    }
+  })
+  .strict().argv;
 
 let level;
 
@@ -59,7 +69,7 @@ function npmSetup() {
 }
 
 function npmPublish() {
-  if (fs.existsSync('.skip-npm') || level === 4) {
+  if (fs.existsSync('.skip-npm')) {
     return;
   }
 
@@ -118,26 +128,28 @@ async function verBump() {
 
   level = result.level;
 
-  if (level === 0) {
+  if (level < 3) {
+    if (argv.skipBeta) {
+      level += 3;
+    } else {
+      releaseType = 'pre';
+    }
+  }
+
+  if (level === 3) {
     releaseType = 'major';
-  } else if (level === 1) {
+  } else if (level === 4) {
     releaseType = 'minor';
-  } else if (level === 2) {
+  } else if (level === 5) {
     releaseType = 'patch';
-  } else if (level === 3) {
-    releaseType = 'pre';
   } else {
-    return;
+    throw new Error(`error level: ${level}`);
   }
 
   execSync(`yarn zcloak-dev-version ${releaseType}`);
 }
 
 async function gitPush() {
-  if (level === 4) {
-    return;
-  }
-
   const version = npmGetVersion();
 
   // if it is not beta, write changelog
@@ -198,7 +210,7 @@ ${content}`
 }
 
 function loopFunc(fn) {
-  if (fs.existsSync('packages') && level < 4) {
+  if (fs.existsSync('packages')) {
     fs.readdirSync('packages')
       .filter((dir) => {
         const pkgDir = path.join(process.cwd(), 'packages', dir);

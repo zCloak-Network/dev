@@ -27,31 +27,22 @@ export default (commits) => {
     }
   });
 
-  if (release) {
-    if (breakings > 0) {
-      level = 0; // major
-    } else if (features > 0) {
-      level = 1; // minor
-    } else if (fixes > 0) {
-      level = 2; // patch
-    } else {
-      throw new Error('must has breakings, features, fixes when release');
-    }
+  if (breakings > 0) {
+    level = 0; // major
+  } else if (features > 0) {
+    level = 1; // minor
+  } else if (fixes > 0) {
+    level = 2; // patch
   } else {
-    if (breakings + features + fixes === 0) {
-      level = 4;
-    } else {
-      level = 3;
-    }
+    level = 2; // patch
+  }
+
+  if (release) {
+    release += 3;
   }
 
   return {
     level,
-    reason:
-      level === 4
-        ? 'nothing to do'
-        : `release/${
-            release ? 'stable' : 'beta'
-          } with ${breakings} ${breakings}BREAKING CHANGE, ${features} Features, ${fixes} Bug Fix`
+    reason: `release with ${breakings} BREAKING CHANGE, ${features} Features, ${fixes} Bug Fix`
   };
 };
