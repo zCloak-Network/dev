@@ -31,7 +31,7 @@ function updatePackage(version, pkgPath, json) {
   const updated = Object.keys(json).reduce((result, key) => {
     if (key === 'version') {
       result[key] = version;
-    } else {
+    } else if (key !== 'stableVersion') {
       result[key] = json[key];
     }
 

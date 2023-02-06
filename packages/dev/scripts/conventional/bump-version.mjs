@@ -38,7 +38,7 @@ export default (commits) => {
   }
 
   if (release) {
-    release += 3;
+    level += 3;
   }
 
   return {
