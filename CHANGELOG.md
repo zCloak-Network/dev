@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.1](https://github.com/zCloak-Network/toolkit/compare/v0.14.0...v0.14.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* **zcloak-dev-version:** fix the script will update dependencies with workspace protocol. ([8cdf3e7](https://github.com/zCloak-Network/toolkit/commit/8cdf3e7565d0810b8530f965f850f0c94d3c7a99))
+
+
 ## [0.14.0](https://github.com/zCloak-Network/toolkit/compare/v0.13.0...v0.14.0) (2023-02-06)
 
 

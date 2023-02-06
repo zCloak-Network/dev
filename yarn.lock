@@ -3745,7 +3745,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zcloak/lint@0.14.0, @zcloak/lint@workspace:packages/lint":
+"@zcloak/lint@npm:0.14.0":
+  version: 0.14.0
+  resolution: "@zcloak/lint@npm:0.14.0"
+  dependencies:
+    chalk: ^5.2.0
+    glob: ^8.1.0
+    parse-imports-ts: ^1.0.3
+    throat: ^6.0.2
+  checksum: d091d828406c391e827314e13b0d18d4c41148c13eb0620c5797b4f0fb6c1addca8c40e9e94acac6df04f51859132540970cf92c55d55d2c54b774cf89844d7c
+  languageName: node
+  linkType: hard
+
+"@zcloak/lint@workspace:packages/lint":
   version: 0.0.0-use.local
   resolution: "@zcloak/lint@workspace:packages/lint"
   dependencies:
