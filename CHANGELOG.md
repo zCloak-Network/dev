@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.14.2](https://github.com/zCloak-Network/toolkit/compare/v0.14.1...v0.14.2) (2023-02-06)
+
+
+### Bug Fixes
+
+* **zcloak-ci-ghact-build:** fix throw level error when no skip-beta arg ([18ae4ab](https://github.com/zCloak-Network/toolkit/commit/18ae4abda305151083cca6252ad7e512b272dfd8))
+
+
 ## [0.14.1](https://github.com/zCloak-Network/toolkit/compare/v0.14.0...v0.14.1) (2023-02-06)
 
 
