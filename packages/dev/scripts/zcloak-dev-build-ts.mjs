@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import babel from '@babel/cli/lib/babel/dir.js';
+import { getPackagesSync } from '@manypkg/get-packages';
 import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
@@ -11,6 +12,8 @@ import { copySync } from './copy.mjs';
 import { __dirname } from './dirname.mjs';
 import { execSync } from './execute.mjs';
 
+const { packages, rootPackage } = getPackagesSync(process.cwd());
+
 const BL_CONFIGS = ['js', 'cjs'].map((e) => `babel.config.${e}`);
 const WP_CONFIGS = ['js', 'cjs'].map((e) => `webpack.config.${e}`);
 const CPX = ['patch', 'js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', 'jpg', 'png', 'svg']
@@ -18,8 +21,6 @@ const CPX = ['patch', 'js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', '
   .concat(['package.json', 'README.md', 'LICENSE']);
 
 console.log('$ zcloak-dev-build-ts', process.argv.slice(2).join(' '));
-
-const rootPkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
 
 // webpack build
 function buildWebpack() {
@@ -205,9 +206,11 @@ function buildExports() {
 
   // replace workspace: version
   if (pkg.dependencies) {
-    Object.entries(pkg.dependencies).forEach(([name, version]) => {
-      if (version.startsWith('workspace:')) {
-        pkg.dependencies[name] = version.replace('workspace:', '') + rootPkg.version;
+    Object.entries(pkg.dependencies).forEach(([name]) => {
+      const localPackage = packages.find(({ packageJson }) => packageJson.name === name);
+
+      if (localPackage) {
+        pkg.dependencies[name] = localPackage.packageJson.version;
       }
     });
   }
@@ -445,13 +448,15 @@ async function buildJs(repoPath, dir) {
 async function main() {
   execSync('yarn zcloak-dev-clean-build');
 
-  if (rootPkg.scripts && rootPkg.scripts['build:extra']) {
+  if (rootPackage.packageJson.scripts && rootPackage.packageJson.scripts['build:extra']) {
     execSync('yarn build:extra');
   }
 
-  const repoPath = rootPkg.repository.url.split('https://github.com/')[1].split('.git')[0];
+  const repoPath = rootPackage.packageJson.repository.url
+    .split('https://github.com/')[1]
+    .split('.git')[0];
 
-  orderPackageJson(repoPath, null, rootPkg);
+  orderPackageJson(repoPath, null, rootPackage.packageJson);
   execSync('yarn zcloak-exec-tsc --build tsconfig.build.json');
 
   process.chdir('packages');
