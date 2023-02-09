@@ -17,7 +17,7 @@
   "version": "0.15.0",
   "bin": {
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
-    "zcloak-ci-release": "./scripts/zcloak-ci-release.mjs",
+    "zcloak-ci-ghact-release": "./scripts/zcloak-ci-ghact-release.mjs",
     "zcloak-dev-build-ts": "./scripts/zcloak-dev-build-ts.mjs",
     "zcloak-dev-bump-version": "./scripts/zcloak-dev-bump-version.mjs",
     "zcloak-dev-circular": "./scripts/zcloak-dev-circular.mjs",
