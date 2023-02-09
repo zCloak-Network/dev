@@ -5,13 +5,13 @@
   "license": "Apache-2.0",
   "packageManager": "yarn@3.3.0",
   "private": true,
+  "name": "zcloak-toolkit",
   "repository": {
     "type": "git",
     "url": "https://github.com/zCloak-Network/toolkit.git"
   },
   "sideEffects": false,
   "type": "commonjs",
-  "version": "0.14.3",
   "workspaces": [
     "packages/*"
   ],
@@ -26,10 +26,8 @@
     "test": "yarn build && yarn test:esm && zcloak-dev-run-test --coverage",
     "test:esm": "node ./tester.cjs && node ./tester.mjs"
   },
-  "devDependencies": {
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.0",
-    "@zcloak/dev": "workspace:packages/dev",
+  "dependencies": {
+    "@zcloak/dev": "0.17.0",
     "copyfiles": "^2.4.1"
   }
 }
