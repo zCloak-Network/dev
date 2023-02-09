@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.20.0
+
+### Minor Changes
+
+- [`cd6e148`](https://github.com/zCloak-Network/toolkit/commit/cd6e148cd93d439aa4d28335d97d0bd9c0f1dfc1) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - copyright header 2023
+
 ## 0.19.0
 
 ### Minor Changes
