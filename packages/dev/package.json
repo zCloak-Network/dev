@@ -7,6 +7,9 @@
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@zcloak/dev",
+  "publishConfig": {
+    "directory": "build"
+  },
   "repository": {
     "directory": "packages/dev",
     "type": "git",
@@ -15,9 +18,6 @@
   "sideEffects": false,
   "type": "module",
   "version": "0.18.0",
-  "publishConfig": {
-    "directory": "build"
-  },
   "bin": {
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
     "zcloak-ci-ghact-release": "./scripts/zcloak-ci-ghact-release.mjs",
@@ -35,7 +35,6 @@
     "zcloak-exec-changeset": "./scripts/zcloak-exec-changeset.mjs",
     "zcloak-exec-eslint": "./scripts/zcloak-exec-eslint.mjs",
     "zcloak-exec-ghrelease": "./scripts/zcloak-exec-ghrelease.mjs",
-    "zcloak-exec-manypkg": "./scripts/zcloak-exec-manypkg.mjs",
     "zcloak-exec-prettier": "./scripts/zcloak-exec-prettier.mjs",
     "zcloak-exec-tsc": "./scripts/zcloak-exec-tsc.mjs",
     "zcloak-exec-webpack": "./scripts/zcloak-exec-webpack.mjs"
@@ -60,11 +59,11 @@
     "@babel/runtime": "^7.20.13",
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.0",
-    "@manypkg/cli": "^0.20.0",
+    "@manypkg/get-packages": "^2.1.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
-    "@zcloak/lint": "0.17.0",
+    "@zcloak/lint": "workspace:^",
     "babel-jest": "^29.4.1",
     "babel-plugin-module-extension-resolver": "^1.0.0",
     "babel-plugin-module-resolver": "^5.0.0",
