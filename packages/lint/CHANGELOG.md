@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.17.0
+
+### Minor Changes
+
+- [#17](https://github.com/zCloak-Network/toolkit/pull/17) [`008cfdd`](https://github.com/zCloak-Network/toolkit/commit/008cfdd864ede6e50da3d617240d181125b23d9b) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - add publish directory config
+
 ## 0.16.0
 
 ### Minor Changes
