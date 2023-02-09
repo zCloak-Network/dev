@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.19.0
+
+### Minor Changes
+
+- [#21](https://github.com/zCloak-Network/toolkit/pull/21) [`b4213a4`](https://github.com/zCloak-Network/toolkit/commit/b4213a4a59f323c369c6743bd04c2eb9c8ace21d) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - remove manypkg and get local package version when build
+
 ## 0.18.0
 
 ### Minor Changes
