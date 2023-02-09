@@ -17,7 +17,9 @@
   "version": "0.15.0",
   "bin": {
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
+    "zcloak-ci-ghact-release": "./scripts/zcloak-ci-ghact-release.mjs",
     "zcloak-dev-build-ts": "./scripts/zcloak-dev-build-ts.mjs",
+    "zcloak-dev-bump-version": "./scripts/zcloak-dev-bump-version.mjs",
     "zcloak-dev-circular": "./scripts/zcloak-dev-circular.mjs",
     "zcloak-dev-clean-build": "./scripts/zcloak-dev-clean-build.mjs",
     "zcloak-dev-copy-to": "./scripts/zcloak-dev-copy-to.mjs",
@@ -27,6 +29,7 @@
     "zcloak-dev-run-test": "./scripts/zcloak-dev-run-test.mjs",
     "zcloak-dev-version": "./scripts/zcloak-dev-version.mjs",
     "zcloak-dev-yarn-only": "./scripts/zcloak-dev-yarn-only.mjs",
+    "zcloak-exec-changeset": "./scripts/zcloak-exec-changeset.mjs",
     "zcloak-exec-eslint": "./scripts/zcloak-exec-eslint.mjs",
     "zcloak-exec-ghrelease": "./scripts/zcloak-exec-ghrelease.mjs",
     "zcloak-exec-prettier": "./scripts/zcloak-exec-prettier.mjs",
