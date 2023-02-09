@@ -27,6 +27,7 @@
     "zcloak-dev-run-test": "./scripts/zcloak-dev-run-test.mjs",
     "zcloak-dev-version": "./scripts/zcloak-dev-version.mjs",
     "zcloak-dev-yarn-only": "./scripts/zcloak-dev-yarn-only.mjs",
+    "zcloak-exec-changeset": "./scripts/zcloak-exec-changeset.mjs",
     "zcloak-exec-eslint": "./scripts/zcloak-exec-eslint.mjs",
     "zcloak-exec-ghrelease": "./scripts/zcloak-exec-ghrelease.mjs",
     "zcloak-exec-prettier": "./scripts/zcloak-exec-prettier.mjs",

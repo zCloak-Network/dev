@@ -19,8 +19,6 @@
     "build": "zcloak-dev-build-ts",
     "build:extra": "(cd packages/dev && copyfiles config/** scripts/** build)",
     "build:release": "zcloak-ci-ghact-build --skip-beta",
-    "bump": "changeset version && yarn",
-    "changeset": "changeset",
     "clean": "zcloak-dev-clean-build",
     "lint": "zcloak-dev-run-lint",
     "postinstall": "./packages/dev/scripts/zcloak-dev-yarn-only.mjs",
@@ -29,6 +27,7 @@
     "test:esm": "node ./tester.cjs && node ./tester.mjs"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.0",
     "@zcloak/dev": "workspace:packages/dev",
     "copyfiles": "^2.4.1"

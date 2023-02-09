@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YARN_ENABLE_SCRIPTS: false
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +33,5 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: yarn bump
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          version: yarn zcloak-dev-bump-version
+          publish: yarn zcloak-ci-ghact-release
