@@ -18,7 +18,6 @@
   "scripts": {
     "build": "zcloak-dev-build-ts",
     "build:extra": "(cd packages/dev && copyfiles config/** scripts/** build)",
-    "build:release": "zcloak-ci-ghact-build --skip-beta",
     "changeset": "zcloak-exec-changeset",
     "clean": "zcloak-dev-clean-build",
     "lint": "zcloak-dev-run-lint",
