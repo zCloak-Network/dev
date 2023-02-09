@@ -1,4 +1,4 @@
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 // Adapted from https://github.com/VitorLuizC/ts-jest-resolver/blob/e35fcd388f6503b5bcb701a216a4beb2df1e1f7e/src/index.ts#L1

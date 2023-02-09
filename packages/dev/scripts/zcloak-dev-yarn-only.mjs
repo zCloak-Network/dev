@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Copyright 2021-2022 zcloak authors & contributors
+// Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 if (process.env.npm_execpath.includes('yarn')) {
