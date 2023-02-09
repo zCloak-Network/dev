@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.18.0
+
+### Minor Changes
+
+- [#19](https://github.com/zCloak-Network/toolkit/pull/19) [`d3b8916`](https://github.com/zCloak-Network/toolkit/commit/d3b891671f532b861ade9bf6a80cd2f6abf791e1) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - use manypkg to check package json
+
 ## 0.17.0
 
 ### Minor Changes

@@ -3270,7 +3270,103 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zcloak/dev@0.17.0, @zcloak/dev@workspace:packages/dev":
+"@zcloak/dev@npm:0.17.0":
+  version: 0.17.0
+  resolution: "@zcloak/dev@npm:0.17.0"
+  dependencies:
+    "@babel/cli": ^7.20.7
+    "@babel/core": ^7.20.12
+    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.18.6
+    "@babel/plugin-proposal-numeric-separator": ^7.18.6
+    "@babel/plugin-proposal-optional-chaining": ^7.20.7
+    "@babel/plugin-syntax-bigint": ^7.8.3
+    "@babel/plugin-syntax-dynamic-import": ^7.8.3
+    "@babel/plugin-syntax-import-assertions": ^7.20.0
+    "@babel/plugin-syntax-import-meta": ^7.10.4
+    "@babel/plugin-syntax-top-level-await": ^7.14.5
+    "@babel/plugin-transform-regenerator": ^7.20.5
+    "@babel/plugin-transform-runtime": ^7.19.6
+    "@babel/preset-env": ^7.20.2
+    "@babel/preset-react": ^7.18.6
+    "@babel/preset-typescript": ^7.18.6
+    "@babel/register": ^7.18.9
+    "@babel/runtime": ^7.20.13
+    "@rushstack/eslint-patch": ^1.2.0
+    "@typescript-eslint/eslint-plugin": ^5.50.0
+    "@typescript-eslint/parser": ^5.50.0
+    "@zcloak/lint": ^0.14.3
+    babel-jest: ^29.4.1
+    babel-plugin-module-extension-resolver: ^1.0.0
+    babel-plugin-module-resolver: ^5.0.0
+    babel-plugin-styled-components: ^2.0.7
+    browserslist: ^4.21.5
+    conventional-changelog: ^3.1.25
+    conventional-recommended-bump: ^6.1.0
+    coveralls: ^3.1.1
+    eslint: ^8.33.0
+    eslint-config-prettier: ^8.6.0
+    eslint-config-standard: ^17.0.0
+    eslint-import-resolver-node: ^0.3.7
+    eslint-plugin-header: ^3.1.1
+    eslint-plugin-import: ^2.27.5
+    eslint-plugin-import-newlines: ^1.3.0
+    eslint-plugin-jsx-a11y: ^6.7.1
+    eslint-plugin-n: ^15.6.1
+    eslint-plugin-node: ^11.1.0
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-promise: ^6.1.1
+    eslint-plugin-react: ^7.32.2
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-simple-import-sort: ^10.0.0
+    eslint-plugin-sort-destructure-keys: ^1.4.0
+    fs-extra: ^11.1.0
+    gh-pages: ^5.0.0
+    gh-release: ^7.0.2
+    glob: ^8.1.0
+    glob2base: ^0.0.12
+    jest: ^29.4.1
+    jest-cli: ^29.4.1
+    jest-config: ^29.4.1
+    jest-environment-jsdom: ^29.4.1
+    jest-haste-map: ^29.4.1
+    jest-resolve: ^29.4.1
+    madge: ^6.0.0
+    minimatch: ^6.1.6
+    mkdirp: ^2.1.3
+    prettier: ^2.8.3
+    rimraf: ^4.1.2
+    typescript: ^4.9.5
+    webpack: ^5.75.0
+    webpack-cli: ^5.0.1
+    webpack-dev-server: ^4.11.1
+    webpack-merge: ^5.8.0
+    webpack-subresource-integrity: ^5.1.0
+    yargs: ^17.6.2
+  bin:
+    zcloak-ci-ghact-build: scripts/zcloak-ci-ghact-build.mjs
+    zcloak-ci-ghact-release: scripts/zcloak-ci-ghact-release.mjs
+    zcloak-dev-build-ts: scripts/zcloak-dev-build-ts.mjs
+    zcloak-dev-bump-version: scripts/zcloak-dev-bump-version.mjs
+    zcloak-dev-circular: scripts/zcloak-dev-circular.mjs
+    zcloak-dev-clean-build: scripts/zcloak-dev-clean-build.mjs
+    zcloak-dev-copy-to: scripts/zcloak-dev-copy-to.mjs
+    zcloak-dev-lint-dependencies: scripts/zcloak-dev-lint-dependencies.mjs
+    zcloak-dev-run-lint: scripts/zcloak-dev-run-lint.mjs
+    zcloak-dev-run-prettier: scripts/zcloak-dev-run-prettier.mjs
+    zcloak-dev-run-test: scripts/zcloak-dev-run-test.mjs
+    zcloak-dev-version: scripts/zcloak-dev-version.mjs
+    zcloak-dev-yarn-only: scripts/zcloak-dev-yarn-only.mjs
+    zcloak-exec-changeset: scripts/zcloak-exec-changeset.mjs
+    zcloak-exec-eslint: scripts/zcloak-exec-eslint.mjs
+    zcloak-exec-ghrelease: scripts/zcloak-exec-ghrelease.mjs
+    zcloak-exec-prettier: scripts/zcloak-exec-prettier.mjs
+    zcloak-exec-tsc: scripts/zcloak-exec-tsc.mjs
+    zcloak-exec-webpack: scripts/zcloak-exec-webpack.mjs
+  checksum: 225e79e45e65b1219f16eede7bab53f00098a9f07e67e4f529ba2bf292824d1571bcba1daeac4262d3a4229bf1e70d3bb0a34b5b4e80a5ab07ed60c53ae158e9
+  languageName: node
+  linkType: hard
+
+"@zcloak/dev@workspace:packages/dev":
   version: 0.0.0-use.local
   resolution: "@zcloak/dev@workspace:packages/dev"
   dependencies:
@@ -3389,6 +3485,18 @@ __metadata:
     throat: ^6.0.2
   languageName: unknown
   linkType: soft
+
+"@zcloak/lint@npm:^0.14.3":
+  version: 0.14.3
+  resolution: "@zcloak/lint@npm:0.14.3"
+  dependencies:
+    chalk: ^5.2.0
+    glob: ^8.1.0
+    parse-imports-ts: ^1.0.3
+    throat: ^6.0.2
+  checksum: 9893a0bb5c81a0ae9dcbdc9f75b432815951b0c622851c2d788488b329c78310c705634e10916d90c127ee08efdbc6ecacc9ea04490b701e3ffe49274fa14c63
+  languageName: node
+  linkType: hard
 
 "JSONStream@npm:^1.0.4":
   version: 1.3.5
