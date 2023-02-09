@@ -16,7 +16,6 @@
   "type": "module",
   "version": "0.14.3",
   "bin": {
-    "zcloak-ci-changeset": "./scripts/zcloak-ci-changeset.mjs",
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
     "zcloak-dev-build-ts": "./scripts/zcloak-dev-build-ts.mjs",
     "zcloak-dev-circular": "./scripts/zcloak-dev-circular.mjs",
@@ -52,8 +51,6 @@
     "@babel/preset-typescript": "^7.18.6",
     "@babel/register": "^7.18.9",
     "@babel/runtime": "^7.20.13",
-    "@changesets/pre": "^1.0.14",
-    "@changesets/read": "^0.5.9",
     "@rushstack/eslint-patch": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
