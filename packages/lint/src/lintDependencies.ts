@@ -1,10 +1,10 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import fs from 'fs';
+import { execSync } from 'child_process';
 import glob from 'glob';
 import { ImportedPackageType, parse as parseTs } from 'parse-imports-ts';
-import path, { join } from 'path';
+import { join } from 'path';
 import throatFactory from 'throat';
 
 import { error } from './feedback';
@@ -25,6 +25,7 @@ const ignoredDependencies = [
   // other
   '@jest/globals',
   'react',
+  'react-dom',
   'react-native'
 ];
 
@@ -153,37 +154,11 @@ async function getTestFiles(): Promise<string[]> {
 
 interface Errors {
   errors: string[];
+  warns: string[];
 }
 
-function getReferences(config: string): [string[], boolean] {
-  const configPath = path.join(process.cwd(), config);
-
-  if (fs.existsSync(configPath)) {
-    try {
-      return [
-        JSON.parse(fs.readFileSync(configPath, 'utf-8')).references.map(
-          ({ path }: { path: string }) =>
-            path.replace('../', '').replace('/tsconfig.build.json', '')
-        ),
-        true
-      ];
-    } catch (error) {
-      console.error(`Unable to parse ${configPath}`);
-
-      throw error;
-    }
-  }
-
-  return [[], false];
-}
-
-function getErrors(
-  base: string,
-  locals: [string, string][],
-  packageJson: any,
-  imports: ImportDetails[]
-): Errors {
-  const result: Errors = { errors: [] };
+function getErrors(base: string, packageJson: any, imports: ImportDetails[], fix: boolean): Errors {
+  const result: Errors = { errors: [], warns: [] };
 
   // Report any package used in the src folder that are not specified in the dependencies or peerDependencies.
   imports.forEach((i) => {
@@ -201,11 +176,15 @@ function getErrors(
       }
 
       if (i.files.length > 0) {
-        result.errors.push(
-          `The package "${i.name}" is used in the files ${i.files
-            .map((file) => `"${base}/${file}"`)
-            .join(',')}. but it is missing from the dependencies in package.json.`
-        );
+        if (fix) {
+          execSync(`yarn add ${i.name}`);
+        } else {
+          result.errors.push(
+            `The package "${i.name}" is used in the files ${i.files
+              .map((file) => `"${base}/${file}"`)
+              .join(',')}. but it is missing from the dependencies in package.json.`
+          );
+        }
       }
     }
 
@@ -224,37 +203,16 @@ function getErrors(
       }
 
       if (i.files.length > 0) {
-        result.errors.push(
-          `Types from the package "${i.name}" are used in the files: ${i.files
-            .map((file) => `"${base}/${file}"`)
-            .join(',')}. But it is missing from the devDependencies in package.json.`
-        );
+        if (fix) {
+          execSync(`yarn add -D ${i.name}`);
+        } else {
+          result.warns.push(
+            `Types from the package "${i.name}" are used in the files: ${i.files
+              .map((file) => `"${base}/${file}"`)
+              .join(',')}. But it is missing from the devDependencies in package.json.`
+          );
+        }
       }
-    }
-  });
-
-  imports.forEach((i) => {
-    // Report local package in tsconfig.build.json
-    const local = locals.find(([, name]) => name === i.name);
-
-    if (local) {
-      const [references] = getReferences('tsconfig.build.json');
-
-      const ref = local[0];
-
-      if (references.includes(ref)) {
-        return;
-      }
-    } else {
-      return;
-    }
-
-    if (i.files.length > 0) {
-      result.errors.push(
-        `The package "${i.name}" is used in the files ${i.files
-          .map((file) => `"${base}/${file}"`)
-          .join(',')}. but it is missing from the referrences in "${base}/tsconfig.build.json".`
-      );
     }
   });
 
@@ -270,20 +228,23 @@ function getErrors(
       return;
     }
 
-    result.errors.push(
-      `The package "${d}" is in the \`dependencies\` of package.json, but it is not used in the source folder. Remove it or move it to the \`devDependencies\`.`
-    );
+    if (fix) {
+      execSync(`yarn remove ${d}`);
+    } else {
+      result.warns.push(
+        `The package "${d}" is in the \`dependencies\` of "${base}/package.json", but it is not used in the source folder. Remove it or move it to the \`devDependencies\`.`
+      );
+    }
   });
 
   return result;
 }
 
-export async function lintDependencies(base: string, locals: [string, string][]): Promise<Errors> {
-  const pkgJsonPromise = readPackageJson();
+export async function lintDependencies(base: string, fix = false): Promise<Errors> {
+  const packageJson = await readPackageJson();
   const [sourceFiles, testFiles] = await Promise.all([getSourceFiles(), getTestFiles()]);
   const files = getFileList(sourceFiles, testFiles);
   const imports = await getImportsForFiles(files);
-  const packageJson = await pkgJsonPromise;
 
-  return getErrors(base, locals, packageJson, imports);
+  return getErrors(base, packageJson, imports, fix);
 }

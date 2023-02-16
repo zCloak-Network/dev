@@ -4,11 +4,21 @@
 
 import fs from 'fs';
 import path from 'path';
+import yargs from 'yargs';
 
 import { lintDependencies } from '@zcloak/lint';
-import { error } from '@zcloak/lint/feedback';
+import { error, warn } from '@zcloak/lint/feedback';
 
 console.log('$ zcloak-dev-lint-dependencies', process.argv.slice(2).join(' '));
+
+const argv = yargs(process.argv.slice(2))
+  .options({
+    fix: {
+      description: 'Auto fix errors',
+      type: 'boolean'
+    }
+  })
+  .strict().argv;
 
 (async () => {
   process.chdir('packages');
@@ -19,6 +29,7 @@ console.log('$ zcloak-dev-lint-dependencies', process.argv.slice(2).join(' '));
     );
 
   const errors = [];
+  const warns = [];
 
   const locals = [];
 
@@ -38,15 +49,20 @@ console.log('$ zcloak-dev-lint-dependencies', process.argv.slice(2).join(' '));
       !fs.existsSync(path.join(process.cwd(), 'public')) &&
       !fs.existsSync(path.join(process.cwd(), '.skip-build'))
     ) {
-      const { errors: _errors } = await lintDependencies(`packages/${dir}`, locals);
+      const { errors: _errors, warns: _warns } = await lintDependencies(
+        `packages/${dir}`,
+        argv.fix
+      );
 
       errors.push(..._errors);
+      warns.push(..._warns);
     }
 
     process.chdir('..');
   }
 
   errors.forEach((e) => error(e));
+  warns.forEach((w) => warn(w));
 
   if (errors.length > 0) {
     process.exit(1);
