@@ -1,5 +1,12 @@
 # @zcloak/dev
 
+## 0.21.1
+
+### Patch Changes
+
+- Updated dependencies [[`375b859`](https://github.com/zCloak-Network/toolkit/commit/375b859af2d286cf67a1d1b9054fff04fdd7a60c)]:
+  - @zcloak/lint@0.19.0
+
 ## 0.21.0
 
 ### Minor Changes

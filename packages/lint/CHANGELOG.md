@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.19.0
+
+### Minor Changes
+
+- [#27](https://github.com/zCloak-Network/toolkit/pull/27) [`375b859`](https://github.com/zCloak-Network/toolkit/commit/375b859af2d286cf67a1d1b9054fff04fdd7a60c) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - remove DevImport check
+
 ## 0.18.0
 
 ### Minor Changes
