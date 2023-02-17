@@ -1,5 +1,13 @@
 # @zcloak/lint
 
+## 0.18.0
+
+### Minor Changes
+
+- [#25](https://github.com/zCloak-Network/toolkit/pull/25) [`22e005a`](https://github.com/zCloak-Network/toolkit/commit/22e005a3cc5f0aca1994a9245c3e54575943156c) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - auto fix missing dependencies
+
+- [#25](https://github.com/zCloak-Network/toolkit/pull/25) [`22e005a`](https://github.com/zCloak-Network/toolkit/commit/22e005a3cc5f0aca1994a9245c3e54575943156c) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - test
+
 ## 0.17.0
 
 ### Minor Changes
