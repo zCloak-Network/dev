@@ -187,54 +187,6 @@ function getErrors(base: string, packageJson: any, imports: ImportDetails[], fix
         }
       }
     }
-
-    // Report any type package used in the src folder that are not specified in the devDependencies.
-    if (i.type === PackageType.DevImport) {
-      if (packageJson.devDependencies.includes(i.name)) {
-        return;
-      }
-
-      if (packageJson.dependencies.includes(i.name)) {
-        return;
-      }
-
-      if (ignoredDependencies.includes(i.name)) {
-        return;
-      }
-
-      if (i.files.length > 0) {
-        if (fix) {
-          execSync(`yarn add -D ${i.name}`);
-        } else {
-          result.warns.push(
-            `Types from the package "${i.name}" are used in the files: ${i.files
-              .map((file) => `"${base}/${file}"`)
-              .join(',')}. But it is missing from the devDependencies in package.json.`
-          );
-        }
-      }
-    }
-  });
-
-  // Report any package specified in the dependencies that are not used in the src folder.
-  const usedImports = imports.map((i) => i.name);
-
-  packageJson.dependencies.forEach((d: any) => {
-    if (ignoredDependencies.includes(d)) {
-      return;
-    }
-
-    if (usedImports.includes(d)) {
-      return;
-    }
-
-    if (fix) {
-      execSync(`yarn remove ${d}`);
-    } else {
-      result.warns.push(
-        `The package "${d}" is in the \`dependencies\` of "${base}/package.json", but it is not used in the source folder. Remove it or move it to the \`devDependencies\`.`
-      );
-    }
   });
 
   return result;
