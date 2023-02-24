@@ -45,10 +45,7 @@ const argv = yargs(process.argv.slice(2))
   for (const dir of dirs) {
     process.chdir(dir);
 
-    if (
-      !fs.existsSync(path.join(process.cwd(), 'public')) &&
-      !fs.existsSync(path.join(process.cwd(), '.skip-build'))
-    ) {
+    if (!fs.existsSync(path.join(process.cwd(), '.skip-build'))) {
       const { errors: _errors, warns: _warns } = await lintDependencies(
         `packages/${dir}`,
         argv.fix
