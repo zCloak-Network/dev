@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.22.0
+
+### Minor Changes
+
+- [`7f93e09`](https://github.com/zCloak-Network/toolkit/commit/7f93e09c6cc8fb5837ad99afaeb8591c45291cdc) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - skip build when lint dependencies
+
 ## 0.21.1
 
 ### Patch Changes
