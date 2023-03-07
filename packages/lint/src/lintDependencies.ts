@@ -9,7 +9,7 @@ import throatFactory from 'throat';
 
 import { error } from './feedback';
 import { readFileAsync } from './fs';
-import { readPackageJson } from './package-json';
+import { PackageJson, readPackageJson } from './package-json';
 
 const MAX_NUMBER_OF_FILES_CONCURENTLY_OPENED = 50;
 const throat = throatFactory(MAX_NUMBER_OF_FILES_CONCURENTLY_OPENED);
@@ -157,7 +157,12 @@ interface Errors {
   warns: string[];
 }
 
-function getErrors(base: string, packageJson: any, imports: ImportDetails[], fix: boolean): Errors {
+function getErrors(
+  base: string,
+  packageJson: PackageJson,
+  imports: ImportDetails[],
+  fix: boolean
+): Errors {
   const result: Errors = { errors: [], warns: [] };
 
   // Report any package used in the src folder that are not specified in the dependencies or peerDependencies.

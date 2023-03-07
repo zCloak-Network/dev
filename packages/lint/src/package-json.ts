@@ -6,6 +6,8 @@ import { resolve } from 'path';
 import { readFileAsync } from './fs';
 
 export interface PackageJson {
+  name: string;
+  version: string;
   dependencies: string[];
   devDependencies: string[];
   peerDependencies: string[];
@@ -18,5 +20,5 @@ export async function readPackageJson(): Promise<PackageJson> {
   const devDependencies = pkg.devDependencies ? Object.keys(pkg.devDependencies) : [];
   const peerDependencies = pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : [];
 
-  return { dependencies, devDependencies, peerDependencies };
+  return { ...pkg, dependencies, devDependencies, peerDependencies };
 }
