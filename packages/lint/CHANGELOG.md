@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.20.0
+
+### Minor Changes
+
+- [`43c2bc0`](https://github.com/zCloak-Network/toolkit/commit/43c2bc00be9e281ac21259daee62ee15a61adac7) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - ignore self name
+
 ## 0.19.0
 
 ### Minor Changes
