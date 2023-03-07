@@ -175,6 +175,10 @@ function getErrors(base: string, packageJson: any, imports: ImportDetails[], fix
         return;
       }
 
+      if (packageJson.name === i.name) {
+        return;
+      }
+
       if (i.files.length > 0) {
         if (fix) {
           execSync(`yarn add ${i.name}`);
