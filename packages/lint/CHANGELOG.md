@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.20.1
+
+### Patch Changes
+
+- [`28631be`](https://github.com/zCloak-Network/toolkit/commit/28631bed10ddd152dbc499d30e885020ade06261) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix lint dependencies read pkg json not full
+
 ## 0.20.0
 
 ### Minor Changes
