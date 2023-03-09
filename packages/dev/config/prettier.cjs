@@ -9,7 +9,6 @@ module.exports = {
   htmlWhitespaceSensitivity: 'ignore',
   jsxBracketSameLine: false,
   jsxSingleQuote: true,
-  parser: 'typescript',
   printWidth: 120,
   proseWrap: 'preserve',
   quoteProps: 'as-needed',
