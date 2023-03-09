@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.23.1
+
+### Patch Changes
+
+- [`5f21f5b`](https://github.com/zCloak-Network/toolkit/commit/5f21f5bdb569edba7b9fcdb5089a5acccd8d08db) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix prettier config
+
 ## 0.23.0
 
 ### Minor Changes
