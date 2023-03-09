@@ -8,9 +8,7 @@ if (process.env.npm_execpath.includes('yarn')) {
 
 const blank = ''.padStart(75);
 
-console.error(
-  `${blank}\n   FATAL: The use of yarn is required, install via npm is not supported.   \n${blank}`
-);
+console.error(`${blank}\n   FATAL: The use of yarn is required, install via npm is not supported.   \n${blank}`);
 console.error(`
     Technical explanation: All the projects in the @zcloak' family use
     yarn workspaces, along with hoisting of dependencies. Currently only

@@ -107,8 +107,7 @@ async function getImportsForFiles(files: FileDetails[]): Promise<ImportDetails[]
 
       if (newImport) {
         newImport.files = [...new Set([...newImport.files, ...item.files])];
-        newImport.type =
-          newImport.type === PackageType.NormalImport ? PackageType.NormalImport : item.type;
+        newImport.type = newImport.type === PackageType.NormalImport ? PackageType.NormalImport : item.type;
       } else {
         acc.push({ ...item, files: [...item.files] });
       }
@@ -119,17 +118,7 @@ async function getImportsForFiles(files: FileDetails[]): Promise<ImportDetails[]
 }
 
 const getFiles = () => (pattern: string) =>
-  new Promise<string[]>((resolve, reject) => {
-    const forFiles = (err: Error | null, files: string[]) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(files.map((f) => join('src', f)));
-      }
-    };
-
-    glob(pattern, { cwd: 'src' }, forFiles);
-  });
+  glob(pattern, { cwd: 'src' }).then((files) => files.map((file) => join('src', file)));
 
 function getSourceFiles(): Promise<string[]> {
   const pattern = '**/*.{ts,tsx,js,jsx,mjs,mts,cts}';
@@ -139,9 +128,7 @@ function getSourceFiles(): Promise<string[]> {
 
 async function getTestFiles(): Promise<string[]> {
   const lists: string[][] = await Promise.all(
-    ['**/__tests__/**/*.?(m)[jt]s?(x)', '**/?(*.)+(spec|test).?(m)[jt]s?(x)'].map((pattern) =>
-      getFiles()(pattern)
-    )
+    ['**/__tests__/**/*.?(m)[jt]s?(x)', '**/?(*.)+(spec|test).?(m)[jt]s?(x)'].map((pattern) => getFiles()(pattern))
   );
   let result: string[] = [];
 
@@ -157,12 +144,7 @@ interface Errors {
   warns: string[];
 }
 
-function getErrors(
-  base: string,
-  packageJson: PackageJson,
-  imports: ImportDetails[],
-  fix: boolean
-): Errors {
+function getErrors(base: string, packageJson: PackageJson, imports: ImportDetails[], fix: boolean): Errors {
   const result: Errors = { errors: [], warns: [] };
 
   // Report any package used in the src folder that are not specified in the dependencies or peerDependencies.

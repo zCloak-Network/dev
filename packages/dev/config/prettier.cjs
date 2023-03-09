@@ -2,10 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 module.exports = {
-  parser: 'babel-ts',
+  arrowParens: 'always',
+  bracketSpacing: true,
+  embeddedLanguageFormatting: 'off',
+  endOfLine: 'lf',
+  htmlWhitespaceSensitivity: 'ignore',
+  jsxBracketSameLine: false,
+  jsxSingleQuote: true,
+  parser: 'typescript',
+  printWidth: 120,
+  proseWrap: 'preserve',
+  quoteProps: 'as-needed',
   semi: true,
-  tabWidth: 2,
-  printWidth: 100,
   singleQuote: true,
-  trailingComma: 'none'
+  tabWidth: 2,
+  trailingComma: 'none',
+  useTabs: false
 };

@@ -35,10 +35,10 @@ function Component({ children, className, label }: Props): React.ReactElement<Pr
 
   return (
     <div className={className}>
-      <Child className="child" label={label}>
+      <Child className='child' label={label}>
         {children}
       </Child>
-      <Child className="child">bob</Child>
+      <Child className='child'>bob</Child>
     </div>
   );
 }

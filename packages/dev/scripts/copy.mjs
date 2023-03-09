@@ -13,9 +13,7 @@ import minimatch from 'minimatch';
 import path from 'path';
 
 function normalizePath(originalPath) {
-  const normalizedPath = path
-    .relative(process.cwd(), path.resolve(originalPath))
-    .replace(/\\/g, '/');
+  const normalizedPath = path.relative(process.cwd(), path.resolve(originalPath)).replace(/\\/g, '/');
 
   return /\/$/.test(normalizedPath) ? normalizedPath.slice(0, -1) : normalizedPath || '.';
 }
@@ -23,9 +21,7 @@ function normalizePath(originalPath) {
 export function copySync(src, dst) {
   const normalizedSource = normalizePath(src);
   const normalizedOutputDir = normalizePath(dst);
-  const baseDir = normalizePath(
-    glob2base({ minimatch: new minimatch.Minimatch(normalizedSource) })
-  );
+  const baseDir = normalizePath(glob2base({ minimatch: new minimatch.Minimatch(normalizedSource) }));
 
   glob
     .sync(normalizedSource, {
@@ -34,10 +30,7 @@ export function copySync(src, dst) {
       silent: true
     })
     .forEach((src) => {
-      const dst =
-        baseDir === '.'
-          ? path.join(normalizedOutputDir, src)
-          : src.replace(baseDir, normalizedOutputDir);
+      const dst = baseDir === '.' ? path.join(normalizedOutputDir, src) : src.replace(baseDir, normalizedOutputDir);
 
       if (dst !== src) {
         const stat = fs.statSync(src);

@@ -32,7 +32,5 @@ if (!argv['skip-eslint']) {
 }
 
 if (!argv['skip-tsc']) {
-  execSync(
-    'yarn zcloak-exec-tsc --noEmit --emitDeclarationOnly false --pretty --project tsconfig.eslint.json'
-  );
+  execSync('yarn zcloak-exec-tsc --noEmit --emitDeclarationOnly false --pretty --project tsconfig.eslint.json');
 }

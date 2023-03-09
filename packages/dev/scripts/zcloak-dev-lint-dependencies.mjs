@@ -24,9 +24,7 @@ const argv = yargs(process.argv.slice(2))
   process.chdir('packages');
   const dirs = fs
     .readdirSync('.')
-    .filter(
-      (dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src'))
-    );
+    .filter((dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src')));
 
   const errors = [];
   const warns = [];
@@ -35,9 +33,7 @@ const argv = yargs(process.argv.slice(2))
 
   // get all package names
   for (const dir of dirs) {
-    const { name } = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), dir, './package.json'), 'utf-8')
-    );
+    const { name } = JSON.parse(fs.readFileSync(path.join(process.cwd(), dir, './package.json'), 'utf-8'));
 
     locals.push([dir, name]);
   }
@@ -46,10 +42,7 @@ const argv = yargs(process.argv.slice(2))
     process.chdir(dir);
 
     if (!fs.existsSync(path.join(process.cwd(), '.skip-build'))) {
-      const { errors: _errors, warns: _warns } = await lintDependencies(
-        `packages/${dir}`,
-        argv.fix
-      );
+      const { errors: _errors, warns: _warns } = await lintDependencies(`packages/${dir}`, argv.fix);
 
       errors.push(..._errors);
       warns.push(..._warns);

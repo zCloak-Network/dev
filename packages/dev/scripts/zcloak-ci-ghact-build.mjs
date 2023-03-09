@@ -62,10 +62,7 @@ function npmGetVersion() {
 function npmSetup() {
   const registry = 'registry.npmjs.org';
 
-  fs.writeFileSync(
-    path.join(os.homedir(), '.npmrc'),
-    `//${registry}/:_authToken=${process.env.NPM_TOKEN}`
-  );
+  fs.writeFileSync(path.join(os.homedir(), '.npmrc'), `//${registry}/:_authToken=${process.env.NPM_TOKEN}`);
 }
 
 function npmPublish() {
@@ -196,9 +193,7 @@ ${content}`
 
   // add the skip checks for GitHub ...
   execSync(
-    `git commit --no-status --quiet -m "chore: release/${
-      version.includes('-') ? 'beta' : 'stable'
-    } ${version}"`
+    `git commit --no-status --quiet -m "chore: release/${version.includes('-') ? 'beta' : 'stable'} ${version}"`
   );
 
   execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);

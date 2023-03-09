@@ -39,8 +39,7 @@ async function buildBabel(dir, type) {
       configFile:
         type === 'esm'
           ? path.join(__dirname, '../config/babel-config-esm.cjs')
-          : configs.find((f) => fs.existsSync(f)) ||
-            path.join(__dirname, '../config/babel-config-cjs.cjs')
+          : configs.find((f) => fs.existsSync(f)) || path.join(__dirname, '../config/babel-config-cjs.cjs')
     },
     cliOptions: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -53,11 +52,9 @@ async function buildBabel(dir, type) {
 
   // rewrite a skeleton package.json with a type=module
   if (type !== 'esm') {
-    [
-      ...CPX,
-      `../../build/${dir}/src/**/*.d.ts`,
-      `../../build/packages/${dir}/src/**/*.d.ts`
-    ].forEach((s) => copySync(s, 'build'));
+    [...CPX, `../../build/${dir}/src/**/*.d.ts`, `../../build/packages/${dir}/src/**/*.d.ts`].forEach((s) =>
+      copySync(s, 'build')
+    );
   }
 }
 
@@ -76,8 +73,7 @@ function createMapEntry(rootDir, jsPath, noTypes) {
   const otherPath = jsPath.replace('./', './cjs/');
   const hasOther = fs.existsSync(path.join(`${rootDir}-cjs`, jsPath));
   const typesPath = jsPath.replace('.js', '.d.ts');
-  const hasTypes =
-    !noTypes && jsPath.endsWith('.js') && fs.existsSync(path.join(rootDir, typesPath));
+  const hasTypes = !noTypes && jsPath.endsWith('.js') && fs.existsSync(path.join(rootDir, typesPath));
   const field = hasOther
     ? {
         ...(hasTypes ? { types: typesPath } : {}),
@@ -119,8 +115,7 @@ function findFiles(buildDir, extra = '', exclude = []) {
       // no .d.ts compiled outputs
       ['.d.js', '.d.cjs', '.d.mjs'].some((e) => jsName.endsWith(e)) ||
       // .d.ts without .js as an output
-      (jsName.endsWith('.d.ts') &&
-        !fs.existsSync(path.join(buildDir, jsPath.replace('.d.ts', '.js'))));
+      (jsName.endsWith('.d.ts') && !fs.existsSync(path.join(buildDir, jsPath.replace('.d.ts', '.js'))));
 
     if (fs.statSync(fullPathEsm).isDirectory()) {
       findFiles(buildDir, jsPath).forEach((entry) => all.push(entry));
@@ -250,9 +245,7 @@ function buildExports() {
         // we handle the CJS path at the root below
         path !== './cjs/package.json' &&
         (typeof config === 'object' ||
-          !listRoot.some(
-            ([, c]) => typeof c === 'object' && Object.values(c).some((v) => v === path)
-          ))
+          !listRoot.some(([, c]) => typeof c === 'object' && Object.values(c).some((v) => v === path)))
     )
     .sort((a, b) => a[0].localeCompare(b[0]))
     .reduce((all, [path, config]) => {
@@ -274,9 +267,7 @@ function buildExports() {
 
       return {
         ...all,
-        ...(path === '.'
-          ? { './cjs/package.json': './cjs/package.json', './cjs/*': './cjs/*.js' }
-          : {}),
+        ...(path === '.' ? { './cjs/package.json': './cjs/package.json', './cjs/*': './cjs/*.js' } : {}),
         [path]: entry
       };
     }, {});
@@ -352,9 +343,7 @@ function orderPackageJson(repoPath, dir, json) {
 }
 
 function createError(full, line, lineNumber, error) {
-  return `${full}:: ${
-    lineNumber >= 0 ? `line ${lineNumber + 1}:: ` : ''
-  }${error}:: \n\n\t${line}\n`;
+  return `${full}:: ${lineNumber >= 0 ? `line ${lineNumber + 1}:: ` : ''}${error}:: \n\n\t${line}\n`;
 }
 
 function throwOnErrors(errors) {
@@ -452,9 +441,7 @@ async function main() {
     execSync('yarn build:extra');
   }
 
-  const repoPath = rootPackage.packageJson.repository.url
-    .split('https://github.com/')[1]
-    .split('.git')[0];
+  const repoPath = rootPackage.packageJson.repository.url.split('https://github.com/')[1].split('.git')[0];
 
   orderPackageJson(repoPath, null, rootPackage.packageJson);
   execSync('yarn zcloak-exec-tsc --build tsconfig.build.json');
@@ -463,9 +450,7 @@ async function main() {
 
   const dirs = fs
     .readdirSync('.')
-    .filter(
-      (dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src'))
-    );
+    .filter((dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src')));
 
   // build packages
   for (const dir of dirs) {
