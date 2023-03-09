@@ -1,5 +1,16 @@
 # @zcloak/dev
 
+## 0.23.0
+
+### Minor Changes
+
+- [`ad4aa5b`](https://github.com/zCloak-Network/toolkit/commit/ad4aa5b1ed633ca16596eb7644ec808787d3bc5f) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - update lint stage
+
+### Patch Changes
+
+- Updated dependencies [[`ad4aa5b`](https://github.com/zCloak-Network/toolkit/commit/ad4aa5b1ed633ca16596eb7644ec808787d3bc5f)]:
+  - @zcloak/lint@0.21.0
+
 ## 0.22.2
 
 ### Patch Changes

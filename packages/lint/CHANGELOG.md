@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.21.0
+
+### Minor Changes
+
+- [`ad4aa5b`](https://github.com/zCloak-Network/toolkit/commit/ad4aa5b1ed633ca16596eb7644ec808787d3bc5f) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - update lint stage
+
 ## 0.20.1
 
 ### Patch Changes
