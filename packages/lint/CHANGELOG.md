@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.23.0
+
+### Minor Changes
+
+- [`37186e6`](https://github.com/zCloak-Network/toolkit/commit/37186e68dfe0e0bda9cfded53d9e2eeab0f81306) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - revert to use babel
+
 ## 0.22.0
 
 ### Minor Changes
