@@ -24,7 +24,6 @@ module.exports = {
     '.prettierrc.cjs',
     '.vscode/**',
     '.yarn/**',
-    'babel.config.cjs',
     'jest.config.cjs'
   ],
   extends: [

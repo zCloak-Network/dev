@@ -6,11 +6,13 @@ import fs from 'fs';
 import path from 'path';
 import rimraf from 'rimraf';
 
+import { execSync } from './execute.mjs';
+
 const PKGS = path.join(process.cwd(), 'packages');
 const DIRS = [
   'build',
   ...['cjs', 'esm'].map((d) => `build-${d}`),
-  ...['tsbuildinfo', 'build.tsbuildinfo'].map((d) => `tsconfig.${d}`)
+  ...['tsbuildinfo', 'eslint.tsbuildinfo', 'build.tsbuildinfo'].map((d) => `tsconfig.${d}`)
 ];
 
 console.log('$ zcloak-dev-clean-build', process.argv.slice(2).join(' '));
@@ -35,3 +37,5 @@ if (fs.existsSync(PKGS)) {
       .reduce((res, d) => res.concat(getPaths(d)), [])
   );
 }
+
+execSync('yarn zcloak-dev-run-test --clearCache');

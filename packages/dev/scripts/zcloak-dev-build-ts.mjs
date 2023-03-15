@@ -2,23 +2,19 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import babel from '@babel/cli/lib/babel/dir.js';
 import { getPackagesSync } from '@manypkg/get-packages';
-import fs from 'fs';
+import fs from 'fs-extra';
+import { globSync } from 'glob';
 import mkdirp from 'mkdirp';
 import path from 'path';
+import ts from 'typescript';
 
 import { copySync } from './copy.mjs';
-import { __dirname } from './dirname.mjs';
 import { execSync } from './execute.mjs';
 
 const { packages, rootPackage } = getPackagesSync(process.cwd());
 
-const BL_CONFIGS = ['js', 'cjs'].map((e) => `babel.config.${e}`);
 const WP_CONFIGS = ['js', 'cjs'].map((e) => `webpack.config.${e}`);
-const CPX = ['patch', 'js', 'cjs', 'mjs', 'json', 'd.ts', 'css', 'gif', 'hbs', 'jpg', 'png', 'svg']
-  .map((e) => `src/**/*.${e}`)
-  .concat(['package.json', 'README.md', 'LICENSE']);
 
 console.log('$ zcloak-dev-build-ts', process.argv.slice(2).join(' '));
 
@@ -29,32 +25,46 @@ function buildWebpack() {
   execSync(`yarn zcloak-exec-webpack --config ${config} --mode production`);
 }
 
-// compile via babel, either via supplied config or default
-async function buildBabel(dir, type) {
-  const configs = BL_CONFIGS.map((c) => path.join(process.cwd(), `../../${c}`));
+// compile via tsc, either via supplied config or default
+function compileJs(type) {
   const outDir = path.join(process.cwd(), `build${type === 'esm' ? '' : '-cjs'}`);
 
-  await babel.default({
-    babelOptions: {
-      configFile:
-        type === 'esm'
-          ? path.join(__dirname, '../config/babel-config-esm.cjs')
-          : configs.find((f) => fs.existsSync(f)) || path.join(__dirname, '../config/babel-config-cjs.cjs')
-    },
-    cliOptions: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx'],
-      filenames: ['src'],
-      ignore: '**/*.d.ts',
-      outDir,
-      outFileExtension: '.js'
-    }
+  const files = globSync('src/**/*.{js,ts,jsx,tsx}', {
+    ignore: ['src/**/*.d.ts', 'src/**/*.spec.ts', 'src/**/*.spec.tsx', 'src/**/*.test.ts', 'src/**/*.test.tsx']
+  });
+
+  timeIt(`Successfully compiled ${type}`, () => {
+    files.forEach((file) => {
+      const content = fs.readFileSync(file, { encoding: 'utf-8' });
+
+      const outFile = path.join(
+        outDir,
+        file
+          .split(/[\\/]/)
+          .slice(1)
+          .join('/')
+          .replace(/\.tsx?$/, '.js')
+      );
+
+      const { outputText } = ts.transpileModule(content, {
+        compilerOptions: {
+          esModuleInterop: true,
+          importHelpers: true,
+          jsx: file.endsWith('.tsx') || file.endsWith('.jsx') ? ts.JsxEmit.ReactJSX : undefined,
+          module: type === 'cjs' ? ts.ModuleKind.CommonJS : ts.ModuleKind.ESNext,
+          moduleResolution: ts.ModuleResolutionKind.NodeNext,
+          target: ts.ScriptTarget.ES2020
+        }
+      });
+
+      fs.ensureFileSync(outFile);
+      fs.writeFileSync(outFile, outputText);
+    });
   });
 
   // rewrite a skeleton package.json with a type=module
   if (type !== 'esm') {
-    [...CPX, `../../build/${dir}/src/**/*.d.ts`, `../../build/packages/${dir}/src/**/*.d.ts`].forEach((s) =>
-      copySync(s, 'build')
-    );
+    ['package.json', 'README.md', 'LICENSE'].forEach((s) => copySync(s, 'build'));
   }
 }
 
@@ -300,7 +310,7 @@ function orderPackageJson(repoPath, dir, json) {
   json.homepage = `https://github.com/${repoPath}#readme`;
   json.license = 'Apache-2.0';
   json.repository = {
-    ...(dir ? { directory: `packages/${dir}` } : {}),
+    ...(dir ? { directory: dir } : {}),
     type: 'git',
     url: `https://github.com/${repoPath}.git`
   };
@@ -342,65 +352,6 @@ function orderPackageJson(repoPath, dir, json) {
   witeJson(path.join(process.cwd(), 'package.json'), sorted);
 }
 
-function createError(full, line, lineNumber, error) {
-  return `${full}:: ${lineNumber >= 0 ? `line ${lineNumber + 1}:: ` : ''}${error}:: \n\n\t${line}\n`;
-}
-
-function throwOnErrors(errors) {
-  if (errors.length) {
-    throw new Error(errors.join('\n'));
-  }
-}
-
-function loopFiles(exts, dir, sub, fn, allowComments = false) {
-  return fs.readdirSync(sub).reduce((errors, inner) => {
-    const full = path.join(sub, inner);
-
-    if (fs.statSync(full).isDirectory()) {
-      return errors.concat(loopFiles(exts, dir, full, fn, allowComments));
-    } else if (exts.some((e) => full.endsWith(e))) {
-      return errors.concat(
-        fs
-          .readFileSync(full, 'utf-8')
-          .split('\n')
-          .map((l, n) => {
-            const t = l
-              // no leading/trailing whitespace
-              .trim()
-              // anything starting with * (multi-line comments)
-              .replace(/^\*.*/, '')
-              // anything between /* ... */
-              .replace(/\/\*.*\*\//g, '')
-              // single line comments with // ...
-              .replace(allowComments ? /--------------------/ : /\/\/.*/, '');
-
-            return fn(`${dir}/${full}`, t, n);
-          })
-          .filter((e) => !!e)
-      );
-    }
-
-    return errors;
-  }, []);
-}
-
-function lintOutput(dir) {
-  throwOnErrors(
-    loopFiles(['.d.ts', '.js', '.cjs'], dir, 'build', (full, l, n) => {
-      if (l.startsWith('import ') && l.includes(" from '") && l.includes('/src/')) {
-        // we are not allowed to import from /src/
-        return createError(full, l, n, 'Invalid import from /src/');
-        // eslint-disable-next-line no-useless-escape
-      } else if (/[\+\-\*\/\=\<\>\|\&\%\^\(\)\{\}\[\] ][0-9]{1,}n/.test(l)) {
-        // we don't want untamed BigInt literals
-        return createError(full, l, n, 'Prefer BigInt(<digits>) to <digits>n');
-      }
-
-      return null;
-    })
-  );
-}
-
 function timeIt(label, fn) {
   const start = Date.now();
 
@@ -409,32 +360,29 @@ function timeIt(label, fn) {
   console.log(`${label} (${Date.now() - start}ms)`);
 }
 
-async function buildJs(repoPath, dir) {
+function buildJs(repoPath, pkg) {
   const pkgJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf-8'));
   const { name, version } = pkgJson;
 
   console.log(`*** ${name} ${version}`);
 
-  orderPackageJson(repoPath, dir, pkgJson);
+  orderPackageJson(repoPath, path.join(pkg.relativeDir), pkgJson);
 
   if (!fs.existsSync(path.join(process.cwd(), '.skip-build'))) {
     if (fs.existsSync(path.join(process.cwd(), 'public'))) {
       buildWebpack();
     } else {
-      await buildBabel(dir, 'cjs');
-      await buildBabel(dir, 'esm');
+      compileJs('cjs');
+      compileJs('esm');
 
       timeIt('Successfully built exports', () => buildExports());
-      timeIt('Successfully linted configs', () => {
-        lintOutput(dir);
-      });
     }
   }
 
   console.log();
 }
 
-async function main() {
+function main() {
   execSync('yarn zcloak-dev-clean-build');
 
   if (rootPackage.packageJson.scripts && rootPackage.packageJson.scripts['build:extra']) {
@@ -446,25 +394,10 @@ async function main() {
   orderPackageJson(repoPath, null, rootPackage.packageJson);
   execSync('yarn zcloak-exec-tsc --build tsconfig.build.json');
 
-  process.chdir('packages');
-
-  const dirs = fs
-    .readdirSync('.')
-    .filter((dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src')));
-
-  // build packages
-  for (const dir of dirs) {
-    process.chdir(dir);
-
-    await buildJs(repoPath, dir);
-
-    process.chdir('..');
+  for (const pkg of packages) {
+    process.chdir(pkg.dir);
+    buildJs(repoPath, pkg);
   }
-
-  process.chdir('..');
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(-1);
-});
+main();
