@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.25.0
+
+### Minor Changes
+
+- [`c93f6d3`](https://github.com/zCloak-Network/toolkit/commit/c93f6d314f9d385ae2df486591c222c01b8e2ce6) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - use typescript compile js
+
 ## 0.24.0
 
 ### Minor Changes
