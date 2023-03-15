@@ -2,12 +2,14 @@
   "extends": "@zcloak/dev/config/tsconfig.json",
   "compilerOptions": {
     "composite": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "paths": {
       "@zcloak/dev": ["dev/src"],
       "@zcloak/dev/*": ["dev/src/*"],
       "@zcloak/lint": ["lint/src"],
       "@zcloak/lint/*": ["lint/src/*"]
-    },
-    "skipLibCheck": true
+    }
   }
 }

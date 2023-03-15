@@ -7,12 +7,12 @@ import { ImportedPackageType, parse as parseTs } from 'parse-imports-ts';
 import { join } from 'path';
 import throatFactory from 'throat';
 
-import { error } from './feedback';
-import { readFileAsync } from './fs';
-import { PackageJson, readPackageJson } from './package-json';
+import { error } from './feedback.js';
+import { readFileAsync } from './fs.js';
+import { PackageJson, readPackageJson } from './package-json.js';
 
 const MAX_NUMBER_OF_FILES_CONCURENTLY_OPENED = 50;
-const throat = throatFactory(MAX_NUMBER_OF_FILES_CONCURENTLY_OPENED);
+const throat = throatFactory.default(MAX_NUMBER_OF_FILES_CONCURENTLY_OPENED);
 
 const ignoredDependencies = [
   // node

@@ -3,7 +3,7 @@
 
 import { resolve } from 'path';
 
-import { readFileAsync } from './fs';
+import { readFileAsync } from './fs.js';
 
 export interface PackageJson {
   name: string;

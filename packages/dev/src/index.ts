@@ -1,12 +1,12 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { BlahType } from '@zcloak/dev/types';
-import type { EchoString } from './types';
+import type { BlahType } from '@zcloak/dev/types.js';
+import type { EchoString } from './types.js';
 
-import { foo } from './test1/foo';
-import { adder, blah } from './test1';
-import { addThree } from './util';
+import { foo } from './test1/foo.js';
+import { adder, blah } from './test1/index.js';
+import { addThree } from './util.js';
 
 const SOMETHING = {
   a: 1,

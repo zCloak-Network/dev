@@ -1,7 +1,7 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import index, { blah } from '.';
+import index, { blah } from './index.js';
 
 describe('index', () => {
   it('runs the test', () => {

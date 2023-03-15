@@ -4,7 +4,7 @@
   "homepage": "https://github.com/zCloak-Network/toolkit#readme",
   "license": "Apache-2.0",
   "name": "zcloak-toolkit",
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "yarn@4.0.0-rc.40",
   "private": true,
   "repository": {
     "type": "git",

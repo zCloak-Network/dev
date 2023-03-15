@@ -1,8 +1,8 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { adder, blah } from './test1';
-import { echo } from '.';
+import { adder, blah } from './test1/index.js';
+import { echo } from './index.js';
 
 describe('index', () => {
   it('runs the echo function', () => {
