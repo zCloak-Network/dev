@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.22.0
+
+### Minor Changes
+
+- [`3032930`](https://github.com/zCloak-Network/toolkit/commit/303293047cf3a9a138ae531d556f8f0147fb5af1) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - bump deps, upgrade typescript to 5.0
+
 ## 0.21.0
 
 ### Minor Changes
