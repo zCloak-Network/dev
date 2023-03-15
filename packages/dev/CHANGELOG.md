@@ -1,5 +1,16 @@
 # @zcloak/dev
 
+## 0.26.0
+
+### Minor Changes
+
+- [`37186e6`](https://github.com/zCloak-Network/toolkit/commit/37186e68dfe0e0bda9cfded53d9e2eeab0f81306) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - revert to use babel
+
+### Patch Changes
+
+- Updated dependencies [[`37186e6`](https://github.com/zCloak-Network/toolkit/commit/37186e68dfe0e0bda9cfded53d9e2eeab0f81306)]:
+  - @zcloak/lint@0.23.0
+
 ## 0.24.0
 
 ### Minor Changes
