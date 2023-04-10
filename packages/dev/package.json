@@ -17,7 +17,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "0.26.0",
+  "version": "0.26.1",
   "bin": {
     "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
     "zcloak-ci-ghact-release": "./scripts/zcloak-ci-ghact-release.mjs",
