@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.26.1
+
+### Patch Changes
+
+- [`9867156`](https://github.com/zCloak-Network/toolkit/commit/98671569a3c902920fa8d89ca18610188f7a35ec) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - upgrade typescript
+
 ## 0.26.0
 
 ### Minor Changes
