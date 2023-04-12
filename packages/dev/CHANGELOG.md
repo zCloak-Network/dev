@@ -1,5 +1,18 @@
 # @zcloak/dev
 
+## 0.27.0
+
+### Minor Changes
+
+- [`1b6247f`](https://github.com/zCloak-Network/toolkit/commit/1b6247fabb67639e10f2479d1c391e518c6282fc) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - use @babel/plugin-transform-runtime and corejs instead babel-polyfill
+
+  dont read packages dir for workspace
+
+### Patch Changes
+
+- Updated dependencies [[`1b6247f`](https://github.com/zCloak-Network/toolkit/commit/1b6247fabb67639e10f2479d1c391e518c6282fc)]:
+  - @zcloak/lint@0.24.0
+
 ## 0.26.1
 
 ### Patch Changes
