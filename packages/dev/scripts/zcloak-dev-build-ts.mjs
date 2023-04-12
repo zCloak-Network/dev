@@ -30,7 +30,7 @@ function buildWebpack() {
 }
 
 // compile via babel, either via supplied config or default
-async function buildBabel(dir, type) {
+async function buildBabel(type) {
   const configs = BL_CONFIGS.map((c) => path.join(process.cwd(), `../../${c}`));
   const outDir = path.join(process.cwd(), `build${type === 'esm' ? '' : '-cjs'}`);
 
@@ -52,9 +52,7 @@ async function buildBabel(dir, type) {
 
   // rewrite a skeleton package.json with a type=module
   if (type !== 'esm') {
-    [...CPX, `../../build/${dir}/src/**/*.d.ts`, `../../build/packages/${dir}/src/**/*.d.ts`].forEach((s) =>
-      copySync(s, 'build')
-    );
+    CPX.forEach((s) => copySync(s, 'build'));
   }
 }
 
@@ -297,10 +295,10 @@ function sortJson(json) {
 
 function orderPackageJson(repoPath, dir, json) {
   json.bugs = `https://github.com/${repoPath}/issues`;
-  json.homepage = `https://github.com/${repoPath}#readme`;
+  json.homepage = path.join(`https://github.com/${repoPath}`, dir ? `/tree/master/${dir}` : '', '#readme');
   json.license = 'Apache-2.0';
   json.repository = {
-    ...(dir ? { directory: `packages/${dir}` } : {}),
+    ...(dir ? { directory: dir } : {}),
     type: 'git',
     url: `https://github.com/${repoPath}.git`
   };
@@ -342,65 +340,6 @@ function orderPackageJson(repoPath, dir, json) {
   witeJson(path.join(process.cwd(), 'package.json'), sorted);
 }
 
-function createError(full, line, lineNumber, error) {
-  return `${full}:: ${lineNumber >= 0 ? `line ${lineNumber + 1}:: ` : ''}${error}:: \n\n\t${line}\n`;
-}
-
-function throwOnErrors(errors) {
-  if (errors.length) {
-    throw new Error(errors.join('\n'));
-  }
-}
-
-function loopFiles(exts, dir, sub, fn, allowComments = false) {
-  return fs.readdirSync(sub).reduce((errors, inner) => {
-    const full = path.join(sub, inner);
-
-    if (fs.statSync(full).isDirectory()) {
-      return errors.concat(loopFiles(exts, dir, full, fn, allowComments));
-    } else if (exts.some((e) => full.endsWith(e))) {
-      return errors.concat(
-        fs
-          .readFileSync(full, 'utf-8')
-          .split('\n')
-          .map((l, n) => {
-            const t = l
-              // no leading/trailing whitespace
-              .trim()
-              // anything starting with * (multi-line comments)
-              .replace(/^\*.*/, '')
-              // anything between /* ... */
-              .replace(/\/\*.*\*\//g, '')
-              // single line comments with // ...
-              .replace(allowComments ? /--------------------/ : /\/\/.*/, '');
-
-            return fn(`${dir}/${full}`, t, n);
-          })
-          .filter((e) => !!e)
-      );
-    }
-
-    return errors;
-  }, []);
-}
-
-function lintOutput(dir) {
-  throwOnErrors(
-    loopFiles(['.d.ts', '.js', '.cjs'], dir, 'build', (full, l, n) => {
-      if (l.startsWith('import ') && l.includes(" from '") && l.includes('/src/')) {
-        // we are not allowed to import from /src/
-        return createError(full, l, n, 'Invalid import from /src/');
-        // eslint-disable-next-line no-useless-escape
-      } else if (/[\+\-\*\/\=\<\>\|\&\%\^\(\)\{\}\[\] ][0-9]{1,}n/.test(l)) {
-        // we don't want untamed BigInt literals
-        return createError(full, l, n, 'Prefer BigInt(<digits>) to <digits>n');
-      }
-
-      return null;
-    })
-  );
-}
-
 function timeIt(label, fn) {
   const start = Date.now();
 
@@ -421,13 +360,10 @@ async function buildJs(repoPath, dir) {
     if (fs.existsSync(path.join(process.cwd(), 'public'))) {
       buildWebpack();
     } else {
-      await buildBabel(dir, 'cjs');
-      await buildBabel(dir, 'esm');
+      await buildBabel('cjs');
+      await buildBabel('esm');
 
       timeIt('Successfully built exports', () => buildExports());
-      timeIt('Successfully linted configs', () => {
-        lintOutput(dir);
-      });
     }
   }
 
@@ -446,22 +382,12 @@ async function main() {
   orderPackageJson(repoPath, null, rootPackage.packageJson);
   execSync('yarn zcloak-exec-tsc --build tsconfig.build.json');
 
-  process.chdir('packages');
-
-  const dirs = fs
-    .readdirSync('.')
-    .filter((dir) => fs.statSync(dir).isDirectory() && fs.existsSync(path.join(process.cwd(), dir, 'src')));
-
-  // build packages
-  for (const dir of dirs) {
-    process.chdir(dir);
-
-    await buildJs(repoPath, dir);
-
-    process.chdir('..');
+  for (const pkg of packages) {
+    process.chdir(pkg.dir);
+    await buildJs(repoPath, pkg.relativeDir);
   }
 
-  process.chdir('..');
+  process.chdir(rootPackage.dir);
 }
 
 main().catch((error) => {

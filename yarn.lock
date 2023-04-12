@@ -3603,6 +3603,7 @@ __metadata:
     browserslist: "npm:^4.21.5"
     conventional-changelog: "npm:^3.1.25"
     conventional-recommended-bump: "npm:^6.1.0"
+    core-js: "npm:^3.30.0"
     coveralls: "npm:^3.1.1"
     eslint: "npm:^8.36.0"
     eslint-config-prettier: "npm:^8.7.0"
@@ -3651,7 +3652,6 @@ __metadata:
     zcloak-dev-bump-version: ./scripts/zcloak-dev-bump-version.mjs
     zcloak-dev-circular: ./scripts/zcloak-dev-circular.mjs
     zcloak-dev-clean-build: ./scripts/zcloak-dev-clean-build.mjs
-    zcloak-dev-copy-to: ./scripts/zcloak-dev-copy-to.mjs
     zcloak-dev-lint-dependencies: ./scripts/zcloak-dev-lint-dependencies.mjs
     zcloak-dev-run-lint: ./scripts/zcloak-dev-run-lint.mjs
     zcloak-dev-run-prettier: ./scripts/zcloak-dev-run-prettier.mjs
@@ -5324,6 +5324,13 @@ __metadata:
   dependencies:
     browserslist: "npm:^4.21.4"
   checksum: 34ea756f18480615ad35d099cfba99c574240140f9233fcddb321dc935c6ed44bd2e40c8cb27b7c98ac9b8ce642b10b8f9d5bd4b5c8d0f74fbf797c3be5a60cf
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.30.0":
+  version: 3.30.0
+  resolution: "core-js@npm:3.30.0"
+  checksum: c064eeb6f8d61059a4355081940ffa7dd0c9c00cd4dfb84b11642acd2312718afe7444bd41de89c1f5060263ec6faa50b7e9da106206afd6e085758a3be9b039
   languageName: node
   linkType: hard
 

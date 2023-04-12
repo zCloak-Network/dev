@@ -16,6 +16,8 @@ module.exports = function (isEsm) {
     [
       '@babel/preset-env',
       {
+        useBuiltIns: 'usage',
+        corejs: 3,
         exclude: [
           // we don't want 2n ** 128n to Math.pow(2n, 128n)
           '@babel/plugin-transform-exponentiation-operator',

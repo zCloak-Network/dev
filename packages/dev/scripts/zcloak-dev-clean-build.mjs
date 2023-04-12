@@ -2,11 +2,12 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import fs from 'fs';
+import { getPackagesSync } from '@manypkg/get-packages';
 import path from 'path';
 import rimraf from 'rimraf';
 
-const PKGS = path.join(process.cwd(), 'packages');
+const { packages, rootPackage } = getPackagesSync(process.cwd());
+
 const DIRS = [
   'build',
   ...['cjs', 'esm'].map((d) => `build-${d}`),
@@ -23,15 +24,8 @@ function cleanDirs(dirs) {
   dirs.forEach((d) => rimraf.sync(d));
 }
 
-cleanDirs(getPaths(process.cwd()));
+cleanDirs(getPaths(rootPackage.dir));
 
-if (fs.existsSync(PKGS)) {
-  cleanDirs(getPaths(PKGS));
-  cleanDirs(
-    fs
-      .readdirSync(PKGS)
-      .map((f) => path.join(PKGS, f))
-      .filter((f) => fs.statSync(f).isDirectory())
-      .reduce((res, d) => res.concat(getPaths(d)), [])
-  );
-}
+packages.forEach((pkg) => {
+  cleanDirs(getPaths(pkg.dir));
+});
