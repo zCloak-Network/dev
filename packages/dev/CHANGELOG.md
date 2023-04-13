@@ -1,5 +1,14 @@
 # @zcloak/dev
 
+## 0.27.3
+
+### Patch Changes
+
+- [`a4db004`](https://github.com/zCloak-Network/toolkit/commit/a4db0047303603b67dfea4c89f0b64993fc2c668) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix build pkg json homepage error
+
+- Updated dependencies [[`a4db004`](https://github.com/zCloak-Network/toolkit/commit/a4db0047303603b67dfea4c89f0b64993fc2c668)]:
+  - @zcloak/lint@0.24.2
+
 ## 0.27.2
 
 ### Patch Changes
