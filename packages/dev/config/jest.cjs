@@ -1,17 +1,16 @@
 // Copyright 2021-2023 zcloak authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-const fs = require('fs');
+const path = require('path');
 const { defaults } = require('jest-config');
+
+const { getPackagesSync } = require('@manypkg/get-packages');
+
+const { packages } = getPackagesSync(process.cwd());
 
 module.exports = {
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
-  modulePathIgnorePatterns: ['<rootDir>/build'].concat(
-    fs
-      .readdirSync('packages')
-      .filter((p) => fs.statSync(`packages/${p}`).isDirectory())
-      .map((p) => `<rootDir>/packages/${p}/build`)
-  ),
+  modulePathIgnorePatterns: packages.map((pkg) => path.join(pkg.dir, 'build')),
   // custom resolver to do TS-like imports
   resolver: require.resolve('./jest-resolver.cjs'),
   // See https://jestjs.io/docs/configuration#extraglobals-arraystring
