@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { adder, blah } from './test1/index.js';
-import { echo } from './index.js';
+import { echo } from '.';
 
 describe('index', () => {
   it('runs the echo function', () => {

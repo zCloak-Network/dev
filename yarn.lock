@@ -3608,6 +3608,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^5.55.0"
     "@zcloak/lint": "workspace:^"
     babel-jest: "npm:^29.5.0"
+    babel-plugin-add-module-exports: "npm:^1.0.4"
     babel-plugin-module-extension-resolver: "npm:^1.0.0"
     babel-plugin-module-resolver: "npm:^5.0.0"
     babel-plugin-styled-components: "npm:^2.0.7"
@@ -4219,6 +4220,13 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.8.0
   checksum: 77be7fcdb768f1fde5e901e3418f9ce7a31d0f6c05783f1ec88c5742c1ede954320c8c522e9816ad5b7b61dbb40943a26aa859277d1234a08346137e4194ab0c
+  languageName: node
+  linkType: hard
+
+"babel-plugin-add-module-exports@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "babel-plugin-add-module-exports@npm:1.0.4"
+  checksum: 1762a93b758c24647d983a2c3e49bc3c5188617e5d48a1dfbd2fde115a759bd06fa83709063ed35aa24cad803033902a74ae00d713696c342994a5a9574d11f4
   languageName: node
   linkType: hard
 
