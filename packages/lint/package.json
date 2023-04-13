@@ -3,7 +3,7 @@
   "bugs": "https://github.com/zCloak-Network/toolkit/issues",
   "contributors": [],
   "description": "A collection of shared CI scripts and development environment used by @zcloak projects",
-  "homepage": "https:/github.com/zCloak-Network/toolkit/tree/master/packages/lint/#readme",
+  "homepage": "https://github.com/zCloak-Network/toolkit/tree/master/packages/lint#readme",
   "license": "Apache-2.0",
   "maintainers": [],
   "name": "@zcloak/lint",
