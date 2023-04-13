@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.24.1
+
+### Patch Changes
+
+- [`275bdd2`](https://github.com/zCloak-Network/toolkit/commit/275bdd284a684f745340d61f2f0434addfad7f10) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - add .js ext for esm module
+
 ## 0.24.0
 
 ### Minor Changes
