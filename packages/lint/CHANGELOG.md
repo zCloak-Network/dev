@@ -1,5 +1,11 @@
 # @zcloak/lint
 
+## 0.24.2
+
+### Patch Changes
+
+- [`a4db004`](https://github.com/zCloak-Network/toolkit/commit/a4db0047303603b67dfea4c89f0b64993fc2c668) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix build pkg json homepage error
+
 ## 0.24.1
 
 ### Patch Changes
