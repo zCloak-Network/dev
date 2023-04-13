@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.27.1
+
+### Patch Changes
+
+- [`157c130`](https://github.com/zCloak-Network/toolkit/commit/157c130c85d030ee181eb5bf1772b03e8610ec09) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - ignore pattern with monorepo packages
+
 ## 0.27.0
 
 ### Minor Changes
