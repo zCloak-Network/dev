@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.28.0
+
+### Minor Changes
+
+- [`df6b4ac`](https://github.com/zCloak-Network/toolkit/commit/df6b4acae34b607c38f535c632d2b2638dd06b6f) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - add version app for monorepo
+
 ## 0.27.3
 
 ### Patch Changes
