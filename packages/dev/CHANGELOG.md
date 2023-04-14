@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.28.1
+
+### Patch Changes
+
+- [`750c4ef`](https://github.com/zCloak-Network/toolkit/commit/750c4ef00bc1879d19d5732d39bb586c5d8cf3d3) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix zcloak-dev-version
+
 ## 0.28.0
 
 ### Minor Changes
