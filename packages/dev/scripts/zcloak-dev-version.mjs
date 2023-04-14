@@ -22,7 +22,8 @@ if (!TYPES.includes(type)) {
 
 console.log('$ zcloak-dev-version', process.argv.slice(2).join(' '));
 
-[packages, rootPackage]
+packages
+  .concat(rootPackage)
   .map((pkg) => {
     const newVer = semver.inc(pkg.packageJson.version, type);
 
