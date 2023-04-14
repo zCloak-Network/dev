@@ -3,7 +3,6 @@
 
 export default (commits) => {
   let level = 2;
-  let release = false;
 
   let breakings = 0;
   let features = 0;
@@ -14,8 +13,6 @@ export default (commits) => {
       commit.notes.forEach((note) => {
         if (note.title === 'BREAKING CHANGE') {
           breakings++;
-        } else if (note.title === 'release-as') {
-          release = true;
         }
       });
     }
@@ -35,10 +32,6 @@ export default (commits) => {
     level = 2; // patch
   } else {
     level = 2; // patch
-  }
-
-  if (release) {
-    level += 3;
   }
 
   return {

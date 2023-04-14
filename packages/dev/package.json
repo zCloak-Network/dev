@@ -19,7 +19,7 @@
   "type": "module",
   "version": "0.27.3",
   "bin": {
-    "zcloak-ci-ghact-build": "./scripts/zcloak-ci-ghact-build.mjs",
+    "zcloak-ci-ghact-app": "./scripts/zcloak-ci-ghact-app.mjs",
     "zcloak-ci-ghact-release": "./scripts/zcloak-ci-ghact-release.mjs",
     "zcloak-dev-build-ts": "./scripts/zcloak-dev-build-ts.mjs",
     "zcloak-dev-bump-version": "./scripts/zcloak-dev-bump-version.mjs",
@@ -104,6 +104,7 @@
     "mkdirp": "^2.1.5",
     "prettier": "^2.8.4",
     "rimraf": "^4.4.0",
+    "semver": "^7.4.0",
     "typescript": "^5.0.4",
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
@@ -118,6 +119,7 @@
     "@types/jest": "^29.4.2",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
+    "@types/semver": "^7",
     "@types/yargs": "^17.0.22",
     "react": "^18.2.0"
   }

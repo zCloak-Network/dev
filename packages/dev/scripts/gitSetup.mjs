@@ -4,7 +4,7 @@
 import { execSync } from './execute.mjs';
 
 const USER = 'github-actions[bot]';
-const MAIL = 'action@github.com';
+const MAIL = 'github-actions[bot]@users.noreply.github.com';
 
 export default function gitSetup() {
   execSync(`git config user.name "${USER}"`);
