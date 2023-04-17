@@ -89,15 +89,6 @@ async function gitPush() {
   const { rootPackage } = getPackagesSync(process.cwd());
   const version = rootPackage.packageJson.version;
 
-  execSync('git add --all .');
-
-  // add the skip checks for GitHub ...
-  execSync(
-    `git commit --no-status --quiet -m "chore: release/${version.includes('-') ? 'beta' : 'stable'} ${version}"`
-  );
-
-  execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
-
   // if it is not beta, write changelog
   if (!version.includes('-')) {
     const stream = conventionalChangelog(
@@ -134,7 +125,19 @@ async function gitPush() {
 ${content}`
       )
     );
+  }
 
+  execSync('git add --all .');
+
+  // add the skip checks for GitHub ...
+  execSync(
+    `git commit --no-status --quiet -m "chore: release/${version.includes('-') ? 'beta' : 'stable'} ${version}"`
+  );
+
+  execSync(`git push ${repo} HEAD:${process.env.GITHUB_REF}`, true);
+
+  // if it is not beta, write changelog
+  if (!version.includes('-')) {
     const files = process.env.GH_RELEASE_FILES ? `--assets ${process.env.GH_RELEASE_FILES}` : '';
 
     execSync(`yarn zcloak-exec-ghrelease ${files} --yes`);
