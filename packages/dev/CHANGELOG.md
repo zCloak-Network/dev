@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.29.0
+
+### Minor Changes
+
+- [`d02157c`](https://github.com/zCloak-Network/toolkit/commit/d02157ca3362b88a7170f1c98d0893ee49cfe749) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - use GH_PAT instead GITHUB_TOKEN, because the GITHUB_TOKEN has not permissions
+
 ## 0.28.1
 
 ### Patch Changes
