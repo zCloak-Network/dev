@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.29.1
+
+### Patch Changes
+
+- [`4531ef7`](https://github.com/zCloak-Network/toolkit/commit/4531ef7d10c826f10ba14ad43d3e4053153addad) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix zcloak-ci-ghact-app ci, publish github release error
+
 ## 0.29.0
 
 ### Minor Changes
