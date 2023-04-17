@@ -27,7 +27,7 @@ const argv = yargs(process.argv.slice(2))
 
 let level;
 
-const repo = `https://${process.env.GITHUB_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
+const repo = `https://${process.env.GH_PAT}@github.com/${process.env.GITHUB_REPOSITORY}.git`;
 
 function runClean() {
   execSync('yarn zcloak-dev-clean-build');
