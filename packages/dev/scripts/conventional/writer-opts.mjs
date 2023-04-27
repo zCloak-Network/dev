@@ -19,9 +19,13 @@ export default {
   commitPartial,
   footerPartial,
   transform: (commit, context) => {
+    let discard = true;
     const issues = [];
 
-    commit.notes = commit.notes.filter((note) => note.title !== 'release-as');
+    commit.notes.forEach((note) => {
+      note.title = 'BREAKING CHANGES';
+      discard = false;
+    });
 
     if (commit.type === 'feat') {
       commit.type = 'Features';
@@ -31,8 +35,20 @@ export default {
       commit.type = 'Performance Improvements';
     } else if (commit.type === 'revert' || commit.revert) {
       commit.type = 'Reverts';
-    } else {
+    } else if (discard) {
       return;
+    } else if (commit.type === 'docs') {
+      commit.type = 'Documentation';
+    } else if (commit.type === 'style') {
+      commit.type = 'Styles';
+    } else if (commit.type === 'refactor') {
+      commit.type = 'Code Refactoring';
+    } else if (commit.type === 'test') {
+      commit.type = 'Tests';
+    } else if (commit.type === 'build') {
+      commit.type = 'Build System';
+    } else if (commit.type === 'ci') {
+      commit.type = 'Continuous Integration';
     }
 
     if (commit.scope === '*') {
