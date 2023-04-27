@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.30.0
+
+### Minor Changes
+
+- [`bf24611`](https://github.com/zCloak-Network/toolkit/commit/bf24611060c847c77c41bda4b287c0681c9722a0) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - add breaking change writer
+
 ## 0.29.1
 
 ### Patch Changes
