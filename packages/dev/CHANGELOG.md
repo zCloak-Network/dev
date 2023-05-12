@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.31.0
+
+### Minor Changes
+
+- [`9d5ab4b`](https://github.com/zCloak-Network/toolkit/commit/9d5ab4bb4cfdf1f44fb61e5a68749aa55531421a) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - remove require helper for commonjs
+
 ## 0.30.0
 
 ### Minor Changes
