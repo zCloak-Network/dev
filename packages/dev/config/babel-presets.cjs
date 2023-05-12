@@ -3,7 +3,7 @@
 
 const resolver = require('./babel-resolver.cjs');
 
-module.exports = function (isEsm, usage) {
+module.exports = function (isEsm) {
   return resolver([
     '@babel/preset-typescript',
     [
@@ -16,8 +16,6 @@ module.exports = function (isEsm, usage) {
     [
       '@babel/preset-env',
       {
-        useBuiltIns: usage ? 'usage' : false,
-        corejs: usage ? 3 : false,
         exclude: [
           // we don't want 2n ** 128n to Math.pow(2n, 128n)
           '@babel/plugin-transform-exponentiation-operator',
