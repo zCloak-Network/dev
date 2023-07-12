@@ -1,5 +1,11 @@
 # @zcloak/dev
 
+## 0.31.1
+
+### Patch Changes
+
+- [`b8a0184`](https://github.com/zCloak-Network/toolkit/commit/b8a0184b64a7a7bdaf4f33205cf392ffa55854ad) Thanks [@zzcwoshizz](https://github.com/zzcwoshizz)! - fix import path on windows
+
 ## 0.31.0
 
 ### Minor Changes
