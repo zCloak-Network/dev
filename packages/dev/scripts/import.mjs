@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import path from 'path';
+import { pathToFileURL } from 'url';
 
 export function importPath(req) {
-  return path.join(process.cwd(), 'node_modules', req);
+  return pathToFileURL(path.join(process.cwd(), 'node_modules', req)).toString();
 }
 
 export async function importDirect(bin, req) {
